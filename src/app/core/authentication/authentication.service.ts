@@ -71,7 +71,7 @@ export class AuthenticationService {
         this.storage = localStorage;
       }
       const twoFactorAccessToken = JSON.parse(this.storage.getItem(this.twoFactorAuthenticationTokenStorageKey));
-      if (environment.oauth.enabled) {
+      if (environment.oauth.enabled == 'true') {
         this.refreshOAuthAccessToken();
       } else {
         authenticationInterceptor.setAuthorizationToken(savedCredentials.base64EncodedAuthenticationKey);
@@ -92,7 +92,7 @@ export class AuthenticationService {
     this.rememberMe = loginContext.remember;
     this.storage = this.rememberMe ? localStorage : sessionStorage;
 
-    if (environment.oauth.enabled) {
+    if (environment.oauth.enabled == 'true') {
       let httpParams = new HttpParams();
       httpParams = httpParams.set('username', loginContext.username);
       httpParams = httpParams.set('password', loginContext.password);
@@ -186,7 +186,7 @@ export class AuthenticationService {
    */
   private onLoginSuccess(credentials: Credentials) {
     this.userLoggedIn = true;
-    if (environment.oauth.enabled) {
+    if (environment.oauth.enabled == 'true') {
       this.authenticationInterceptor.setAuthorizationToken(credentials.accessToken);
     } else {
       this.authenticationInterceptor.setAuthorizationToken(credentials.base64EncodedAuthenticationKey);

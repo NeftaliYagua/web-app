@@ -50,7 +50,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
       log.error(`Request Error: ${errorMessage}`);
     }
 
-    if (status === 401 || (environment.oauth.enabled && status === 400)) {
+    if (status === 401 || (environment.oauth.enabled == 'true' && status === 400)) {
       this.alertService.alert({ type: 'Authentication Error', message: 'Invalid User Details. Please try again!' });
     } else if (status === 403 && errorMessage === 'The provided one time token is invalid') {
       this.alertService.alert({ type: 'Invalid Token', message: 'Invalid Token. Please try again!' });
