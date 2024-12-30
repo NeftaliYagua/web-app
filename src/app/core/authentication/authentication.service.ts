@@ -229,7 +229,7 @@ export class AuthenticationService {
   logout(): Observable<boolean> {
     const twoFactorToken = JSON.parse(this.storage.getItem(this.twoFactorAuthenticationTokenStorageKey));
     if (twoFactorToken) {
-      this.http.post('/twofactor/invalidate', { token: twoFactorToken.token }).subscribe();
+      this.http.post(`${environment.serverUrl}/twofactor/invalidate`, { token: twoFactorToken.token }).subscribe();
       this.authenticationInterceptor.removeTwoFactorAuthorization();
     }
     const oAuthRefreshToken = JSON.parse(this.storage.getItem(this.oAuthTokenDetailsStorageKey));

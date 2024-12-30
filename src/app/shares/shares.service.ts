@@ -45,7 +45,7 @@ export class SharesService {
    * @returns {Observable<any>}
    */
   createSharesAccount(sharesAccount: any): Observable<any> {
-    return this.http.post('/accounts/share', sharesAccount);
+    return this.http.post(`${environment.serverUrl}/accounts/share`, sharesAccount);
   }
 
   /**

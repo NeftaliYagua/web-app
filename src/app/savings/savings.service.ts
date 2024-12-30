@@ -173,7 +173,7 @@ export class SavingsService {
    * @returns {Observable<any>}
    */
   createSavingsAccount(savingsAccount: any): Observable<any> {
-    return this.http.post('/savingsaccounts', savingsAccount);
+    return this.http.post(`${environment.serverUrl}/savingsaccounts`, savingsAccount);
   }
 
   /**
