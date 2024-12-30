@@ -108,7 +108,7 @@ export class AuthenticationService {
           })
         );
     } else {
-      return this.http.post('/authentication', { username: loginContext.username, password: loginContext.password })
+      return this.http.post(`${environment.serverUrl}/authentication`, { username: loginContext.username, password: loginContext.password })
         .pipe(
           map((credentials: Credentials) => {
             this.onLoginSuccess(credentials);
