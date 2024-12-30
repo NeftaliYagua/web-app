@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';
+import { environment } from 'environments/environment';
 
 /**
  * Templates service.
@@ -22,7 +23,7 @@ export class TemplatesService {
    * @returns {Observable<any>} Templates data
    */
   getTemplates(): Observable<any> {
-    return this.http.get('/templates');
+    return this.http.get(`${environment.serverUrl}/templates`);
   }
 
   /**
@@ -30,14 +31,14 @@ export class TemplatesService {
    * @returns {Observable<any>} Fetches Template.
    */
   getTemplate(templateId: string): Observable<any> {
-    return this.http.get(`/templates/${templateId}`);
+    return this.http.get(`${environment.serverUrl}/templates/${templateId}`);
   }
 
   /**
    * @returns {Observable<any>}.
    */
   getCreateTemplateData(): Observable<any> {
-    return this.http.get('/templates/template');
+    return this.http.get(`${environment.serverUrl}/templates/template`);
   }
 
   /**
@@ -45,7 +46,7 @@ export class TemplatesService {
    * @returns {Observable<any>}.
    */
   getEditTemplateData(templateId: string): Observable<any> {
-    return this.http.get(`/templates/${templateId}/template`);
+    return this.http.get(`${environment.serverUrl}/templates/${templateId}/template`);
   }
 
   /**
@@ -54,7 +55,7 @@ export class TemplatesService {
    * @returns {Observable<any>}.
    */
   createTemplate(templateData: any): Observable<any>  {
-    return this.http.post(`/templates`, templateData);
+    return this.http.post(`${environment.serverUrl}/templates`, templateData);
   }
 
   /**
@@ -63,7 +64,7 @@ export class TemplatesService {
    * @returns {Observable<any>}.
    */
   updateTemplate(templateData: any, templateId: any): Observable<any>  {
-    return this.http.put(`/templates/${templateId}`, templateData);
+    return this.http.put(`${environment.serverUrl}/templates/${templateId}`, templateData);
   }
 
   /**
@@ -71,7 +72,7 @@ export class TemplatesService {
    * @returns {Observable<any>}
    */
   deleteTemplate(templateId: string): Observable<any> {
-    return this.http.delete(`/templates/${templateId}`);
+    return this.http.delete(`${environment.serverUrl}/templates/${templateId}`);
   }
 
 }

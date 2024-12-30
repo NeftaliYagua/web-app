@@ -301,7 +301,7 @@ export class AuthenticationService {
    * Gets the two factor authentication delivery methods available for the user.
    */
   getDeliveryMethods() {
-    return this.http.get('/twofactor');
+    return this.http.get(`${environment.serverUrl}/twofactor`);
   }
 
   showDialog() {
@@ -324,7 +324,7 @@ export class AuthenticationService {
     let httpParams = new HttpParams();
     httpParams = httpParams.set('deliveryMethod', deliveryMethod.name);
     httpParams = httpParams.set('extendedToken', this.rememberMe.toString());
-    return this.http.post(`/twofactor`, {}, { params: httpParams });
+    return this.http.post(`${environment.serverUrl}/twofactor`, {}, { params: httpParams });
   }
 
   /**
@@ -333,7 +333,7 @@ export class AuthenticationService {
    */
   validateOTP(otp: string) {
     const httpParams = new HttpParams().set('token', otp);
-    return this.http.post(`/twofactor/validate`, {}, { params: httpParams })
+    return this.http.post(`${environment.serverUrl}/twofactor/validate`, {}, { params: httpParams })
       .pipe(
         map(response => {
           this.onOTPValidateSuccess(response);
@@ -366,7 +366,7 @@ export class AuthenticationService {
    * @param {any} passwordDetails New password.
    */
   resetPassword(passwordDetails: any) {
-    return this.http.put(`/users/${this.credentials.userId}`, passwordDetails).
+    return this.http.put(`${environment.serverUrl}/users/${this.credentials.userId}`, passwordDetails).
     pipe(
       map(() => {
         this.alertService.alert({ type: 'Password Reset Success', message: `Your password was sucessfully reset!` });

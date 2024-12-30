@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';
+import { environment } from 'environments/environment';
 
 /**
  * Tasks Service
@@ -33,14 +34,14 @@ export class TasksService {
         }
       }
     }
-    return this.http.get('/makercheckers', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/makercheckers`, { params: httpParams });
   }
 
   /**
    * Get Maker Checker Template
    */
   getMakerCheckerTemplate(): Observable<any> {
-    return this.http.get('/makercheckers');
+    return this.http.get(`${environment.serverUrl}/makercheckers`);
   }
 
   /**
@@ -49,14 +50,14 @@ export class TasksService {
   getGroupedClientsData(): Observable<any> {
     const httpParams = new HttpParams().set('limit', '1000')
                                        .set('status', 'PENDING');
-    return this.http.get('/clients', { params: httpParams});
+    return this.http.get(`${environment.serverUrl}/clients`, { params: httpParams});
   }
 
   /**
    * Get all Offices Data
    */
   getAllOffices(): Observable<any> {
-    return this.http.get('/offices');
+    return this.http.get(`${environment.serverUrl}/offices`);
   }
 
   /**
@@ -65,7 +66,7 @@ export class TasksService {
   getAllLoansToBeApproved(): Observable<any> {
     const httpParams = new HttpParams().set('limit', '1000')
                                        .set('status', '100');
-    return this.http.get('/loans', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/loans`, { params: httpParams });
   }
 
   /**
@@ -74,7 +75,7 @@ export class TasksService {
   getAllLoansToBeDisbursed(): Observable<any> {
     const httpParams = new HttpParams().set('limit', '1000')
                                        .set('status', '200');
-    return this.http.get('/loans', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/loans`, { params: httpParams });
   }
 
   /**
@@ -82,7 +83,7 @@ export class TasksService {
    */
   getAllLoansLocked(page: number, limit: number): Observable<any> {
     const httpParams = new HttpParams().set('page', page).set('limit', limit);
-    return this.http.get('/loans/locked', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/loans/locked`, { params: httpParams });
   }
 
   /**
@@ -90,7 +91,7 @@ export class TasksService {
    */
   getPendingRescheduleLoans(): Observable<any> {
     const httpParams = new HttpParams().set('command', 'pending');
-    return this.http.get('/rescheduleloans', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/rescheduleloans`, { params: httpParams });
   }
 
   /**
@@ -98,7 +99,7 @@ export class TasksService {
    * @param {data} Data to be submitted
    */
   submitBatchData(data: any): Observable<any> {
-    return this.http.post('/batches', data);
+    return this.http.post(`${environment.serverUrl}/batches`, data);
   }
 
   /**
@@ -108,7 +109,7 @@ export class TasksService {
    */
   executeMakerCheckerAction(makerCheckerId: any, command: any): Observable<any> {
     const httpParams = new HttpParams().set('command', command);
-    return this.http.post(`/makercheckers/${makerCheckerId}`, {}, { params: httpParams });
+    return this.http.post(`${environment.serverUrl}/makercheckers/${makerCheckerId}`, {}, { params: httpParams });
   }
 
   /**
@@ -116,7 +117,7 @@ export class TasksService {
    * @param {makerCheckerId} MakerCheckerId
    */
   deleteMakerChecker(makerCheckerId: any): Observable<any> {
-    return this.http.delete(`/makercheckers/${makerCheckerId}`);
+    return this.http.delete(`${environment.serverUrl}/makercheckers/${makerCheckerId}`);
   }
 
   /**
@@ -124,7 +125,7 @@ export class TasksService {
    * @param {makerCheckerId} MakerCheckerId
    */
   getCheckerInboxDetail(makerCheckerId: any): Observable<any> {
-    return this.http.get(`/audits/${makerCheckerId}`);
+    return this.http.get(`${environment.serverUrl}/audits/${makerCheckerId}`);
   }
 
 }

@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { SettingsService } from 'app/settings/settings.service';
+import { environment } from 'environments/environment';
 
 /**
  * Products service.
@@ -27,76 +28,76 @@ export class ProductsService {
    * @returns {Observable<any>} Loan products data
    */
   getLoanProducts(): Observable<any> {
-    return this.http.get('/loanproducts');
+    return this.http.get(`${environment.serverUrl}/loanproducts`);
   }
 
   createLoanProduct(loanProduct: string): Observable<any> {
-    return this.http.post('/loanproducts', loanProduct);
+    return this.http.post(`${environment.serverUrl}/loanproducts`, loanProduct);
   }
 
   getLoanProductsTemplate(): Observable<any> {
-    return this.http.get('/loanproducts/template');
+    return this.http.get(`${environment.serverUrl}/loanproducts/template`);
   }
 
   getLoanProduct(loanProductId: string, template: boolean = false): Observable<any> {
     const httpParams = new HttpParams().set('template', template.toString());
-    return this.http.get(`/loanproducts/${loanProductId}`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/loanproducts/${loanProductId}`, { params: httpParams });
   }
 
   updateLoanProduct(loanProductId: string, loanProduct: any): Observable<any> {
-    return this.http.put(`/loanproducts/${loanProductId}`, loanProduct);
+    return this.http.put(`${environment.serverUrl}/loanproducts/${loanProductId}`, loanProduct);
   }
 
   /**
    * @returns {Observable<any>} Saving products data
    */
   getSavingProducts(): Observable<any> {
-    return this.http.get('/savingsproducts');
+    return this.http.get(`${environment.serverUrl}/savingsproducts`);
   }
 
   createSavingProduct(savingProduct: string): Observable<any> {
-    return this.http.post('/savingsproducts', savingProduct);
+    return this.http.post(`${environment.serverUrl}/savingsproducts`, savingProduct);
   }
 
   getSavingProductsTemplate(): Observable<any> {
-    return this.http.get('/savingsproducts/template');
+    return this.http.get(`${environment.serverUrl}/savingsproducts/template`);
   }
 
   getSavingProduct(savingProductId: string, template: boolean = false): Observable<any> {
     const httpParams = new HttpParams().set('template', template.toString());
-    return this.http.get(`/savingsproducts/${savingProductId}`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/savingsproducts/${savingProductId}`, { params: httpParams });
   }
 
   updateSavingProduct(savingProductId: string, savingProduct: any): Observable<any> {
-    return this.http.put(`/savingsproducts/${savingProductId}`, savingProduct);
+    return this.http.put(`${environment.serverUrl}/savingsproducts/${savingProductId}`, savingProduct);
   }
 
   /**
    * @returns {Observable<any>} Share products data
    */
   getShareProducts(): Observable<any> {
-    return this.http.get('/products/share');
+    return this.http.get(`${environment.serverUrl}/products/share`);
   }
 
   createShareProduct(shareProduct: string): Observable<any> {
-    return this.http.post('/products/share', shareProduct);
+    return this.http.post(`${environment.serverUrl}/products/share`, shareProduct);
   }
 
   getShareProductsTemplate(): Observable<any> {
-    return this.http.get('/products/share/template');
+    return this.http.get(`${environment.serverUrl}/products/share/template`);
   }
 
   getShareProduct(shareProductId: string, template: boolean = false): Observable<any> {
     const httpParams = new HttpParams().set('template', template.toString());
-    return this.http.get(`/products/share/${shareProductId}`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/products/share/${shareProductId}`, { params: httpParams });
   }
 
   updateShareProduct(shareProductId: string, shareProduct: any): Observable<any> {
-    return this.http.put(`/products/share/${shareProductId}`, shareProduct);
+    return this.http.put(`${environment.serverUrl}/products/share/${shareProductId}`, shareProduct);
   }
 
   getDividends(shareProductId: string): Observable<any> {
-    return this.http.get(`/shareproduct/${shareProductId}/dividend`);
+    return this.http.get(`${environment.serverUrl}/shareproduct/${shareProductId}/dividend`);
   }
 
   /**
@@ -106,7 +107,7 @@ export class ProductsService {
    * @returns {Observable<any>}
    */
   createDividend(shareProductId: string, dividendData: any): Observable<any> {
-    return this.http.post(`/shareproduct/${shareProductId}/dividend`, dividendData);
+    return this.http.post(`${environment.serverUrl}/shareproduct/${shareProductId}/dividend`, dividendData);
   }
 
   getDividendData(shareProductId: any, dividendId: any): Observable<any> {
@@ -114,12 +115,12 @@ export class ProductsService {
                                        .set('limit', '10')
                                        .set('locale', this.settingsService.language.code)
                                        .set('offset', '0');
-    return this.http.get(`/shareproduct/${shareProductId}/dividend/${dividendId}`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/shareproduct/${shareProductId}/dividend/${dividendId}`, { params: httpParams });
   }
 
   approveDividend(shareProductId: any, dividendId: any, data: any): Observable<any> {
     const httpParams = new HttpParams().set('command', 'approve');
-    return this.http.put(`/shareproduct/${shareProductId}/dividend/${dividendId}`, data, { params: httpParams });
+    return this.http.put(`${environment.serverUrl}/shareproduct/${shareProductId}/dividend/${dividendId}`, data, { params: httpParams });
 
   }
 
@@ -127,7 +128,7 @@ export class ProductsService {
    * @returns {Observable<any>} Recurring deposit products data
    */
   getRecurringDepositProducts(): Observable<any> {
-    return this.http.get('/recurringdepositproducts');
+    return this.http.get(`${environment.serverUrl}/recurringdepositproducts`);
   }
 
   /**
@@ -137,22 +138,22 @@ export class ProductsService {
    */
   getRecurringDepositProduct(recurringDepositProductId: string, template: boolean = false): Observable<any> {
     const httpParams = new HttpParams().set('template', template.toString());
-    return this.http.get(`/recurringdepositproducts/${recurringDepositProductId}`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/recurringdepositproducts/${recurringDepositProductId}`, { params: httpParams });
   }
 
   getRecurringDepositProductsTemplate(): Observable<any> {
-    return this.http.get('/recurringdepositproducts/template');
+    return this.http.get(`${environment.serverUrl}/recurringdepositproducts/template`);
   }
 
   /**
    * @returns {Observable<any>} Charges data.
    */
   getCharges(): Observable<any> {
-    return this.http.get('/charges');
+    return this.http.get(`${environment.serverUrl}/charges`);
   }
 
   getChargesTemplate(): Observable<any> {
-    return this.http.get('/charges/template');
+    return this.http.get(`${environment.serverUrl}/charges/template`);
   }
 
   /**
@@ -161,7 +162,7 @@ export class ProductsService {
    */
   getCharge(selectedCharge: string, template: boolean = false): Observable<any> {
     const httpParams = new HttpParams().set('template', template.toString());
-    return this.http.get(`/charges/${selectedCharge}`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/charges/${selectedCharge}`, { params: httpParams });
   }
 
   /**
@@ -169,7 +170,7 @@ export class ProductsService {
    * @param charges  Charge Data to be updated.
    */
   updateCharge(chargeId: string, charges: any): Observable<any> {
-    return this.http.put(`/charges/${chargeId}`, charges);
+    return this.http.put(`${environment.serverUrl}/charges/${chargeId}`, charges);
   }
 
   /**
@@ -177,7 +178,7 @@ export class ProductsService {
    * @returns {Observable<any>}
    */
   deleteCharge(chargeId: string): Observable<any> {
-    return this.http.delete(`/charges/${chargeId}`);
+    return this.http.delete(`${environment.serverUrl}/charges/${chargeId}`);
   }
 
   /**
@@ -185,22 +186,22 @@ export class ProductsService {
    * @returns {Observable<any>}
    */
   createCharge(charge: any): Observable<any> {
-    return this.http.post('/charges', charge);
+    return this.http.post(`${environment.serverUrl}/charges`, charge);
   }
 
   /**
    * @returns {Observable<any>} Fixed deposit products data
    */
   getFixedDepositProducts(): Observable<any> {
-    return this.http.get('/fixeddepositproducts');
+    return this.http.get(`${environment.serverUrl}/fixeddepositproducts`);
   }
 
   createFixedDepositProduct(fixedDepositProduct: string): Observable<any> {
-    return this.http.post('/fixeddepositproducts', fixedDepositProduct);
+    return this.http.post(`${environment.serverUrl}/fixeddepositproducts`, fixedDepositProduct);
   }
 
   getFixedDepositProductsTemplate(): Observable<any> {
-    return this.http.get('/fixeddepositproducts/template');
+    return this.http.get(`${environment.serverUrl}/fixeddepositproducts/template`);
   }
 
   /**
@@ -208,23 +209,23 @@ export class ProductsService {
    * @returns {Observable<any>} Fixed deposit product.
    */
   getFixedDepositProduct(fixedDepositProductId: string): Observable<any> {
-    return this.http.get(`/fixeddepositproducts/${fixedDepositProductId}`);
+    return this.http.get(`${environment.serverUrl}/fixeddepositproducts/${fixedDepositProductId}`);
   }
 
   getFixedDepositProductAndTemplate(fixedDepositProductId: any) {
     const httpParams = new HttpParams().set('template', 'true');
-    return this.http.get(`/fixeddepositproducts/${fixedDepositProductId}`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/fixeddepositproducts/${fixedDepositProductId}`, { params: httpParams });
   }
 
   updateFixedDepositProduct(fixedDepositProductId: any, fixedDepositProduct: any): Observable<any> {
-    return this.http.put(`/fixeddepositproducts/${fixedDepositProductId}`, fixedDepositProduct);
+    return this.http.put(`${environment.serverUrl}/fixeddepositproducts/${fixedDepositProductId}`, fixedDepositProduct);
   }
 
   /**
    * @returns {Observable<any>} Tax Components data
    */
   getTaxComponents(): Observable<any> {
-    return this.http.get('/taxes/component');
+    return this.http.get(`${environment.serverUrl}/taxes/component`);
   }
 
   /**
@@ -232,14 +233,14 @@ export class ProductsService {
    * @returns {Observable<any>} Tax Component.
    */
   getTaxComponent(taxComponentId: string): Observable<any> {
-    return this.http.get(`/taxes/component/${taxComponentId}`);
+    return this.http.get(`${environment.serverUrl}/taxes/component/${taxComponentId}`);
   }
 
   /**
    * @returns {Observable<any>} Tax Components Template data.
    */
   getTaxComponentTemplate(): Observable<any> {
-    return this.http.get('/taxes/component/template');
+    return this.http.get(`${environment.serverUrl}/taxes/component/template`);
   }
 
   /**
@@ -247,7 +248,7 @@ export class ProductsService {
    * @returns {Observable<any>}
    */
   createTaxComponent(taxComponent: any): Observable<any> {
-    return this.http.post('/taxes/component', taxComponent);
+    return this.http.post(`${environment.serverUrl}/taxes/component`, taxComponent);
   }
 
   /*
@@ -255,14 +256,14 @@ export class ProductsService {
    * @returns {Observable<any>}
    */
   updateTaxComponent(taxComponentId: string, taxComponent: any): Observable<any> {
-    return this.http.put(`/taxes/component/${taxComponentId}`, taxComponent);
+    return this.http.put(`${environment.serverUrl}/taxes/component/${taxComponentId}`, taxComponent);
   }
 
   /**
    * @returns {Observable<any>} Tax Groups data
    */
   getTaxGroups(): Observable<any> {
-    return this.http.get('/taxes/group');
+    return this.http.get(`${environment.serverUrl}/taxes/group`);
   }
 
   /**
@@ -272,14 +273,14 @@ export class ProductsService {
    */
   getTaxGroup(taxGroupId: string, template: string): Observable<any> {
     const httpParams = new HttpParams().set('template', template);
-    return this.http.get(`/taxes/group/${taxGroupId}`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/taxes/group/${taxGroupId}`, { params: httpParams });
   }
 
   /**
    * @returns {Observable<any>} Tax Group Template
    */
   getTaxGroupTemplate(): Observable<any> {
-    return this.http.get('/taxes/group/template');
+    return this.http.get(`${environment.serverUrl}/taxes/group/template`);
   }
 
   /**
@@ -287,7 +288,7 @@ export class ProductsService {
    * @returns {Observable<any>} Tax Group Resource Id
    */
   createTaxGroup(taxGroup: any): Observable<any> {
-    return this.http.post('/taxes/group', taxGroup);
+    return this.http.post(`${environment.serverUrl}/taxes/group`, taxGroup);
   }
 
   /**
@@ -296,14 +297,14 @@ export class ProductsService {
    * @returns {Observable<any>} Changes in the Tax Group
    */
   updateTaxGroup(taxGroupId: any, taxGroup: any): Observable<any> {
-    return this.http.put(`/taxes/group/${taxGroupId}`, taxGroup);
+    return this.http.put(`${environment.serverUrl}/taxes/group/${taxGroupId}`, taxGroup);
   }
 
   /**
    * @returns {Observable<any>} Delinquency Range data
    */
   getDelinquencyRanges(): Observable<any> {
-    return this.http.get('/delinquency/ranges');
+    return this.http.get(`${environment.serverUrl}/delinquency/ranges`);
   }
 
   /**
@@ -311,7 +312,7 @@ export class ProductsService {
    * @returns {Observable<any>} Delinquency Range data.
    */
    getDelinquencyRange(delinquencyRateId: any): Observable<any> {
-    return this.http.get(`/delinquency/ranges/${delinquencyRateId}`);
+    return this.http.get(`${environment.serverUrl}/delinquency/ranges/${delinquencyRateId}`);
   }
 
   /**
@@ -319,7 +320,7 @@ export class ProductsService {
    * @returns {Observable<any>} Delinquency Range Resource Id
    */
    createDelinquencyRange(payload: any): Observable<any> {
-    return this.http.post('/delinquency/ranges', payload);
+    return this.http.post(`${environment.serverUrl}/delinquency/ranges`, payload);
   }
 
   /**
@@ -328,7 +329,7 @@ export class ProductsService {
    * @returns {Observable<any>} Changes in the Delinquency Range
    */
   updateDelinquencyRange(delinquencyRateId: any, payload: any): Observable<any> {
-    return this.http.put(`/delinquency/ranges/${delinquencyRateId}`, payload);
+    return this.http.put(`${environment.serverUrl}/delinquency/ranges/${delinquencyRateId}`, payload);
   }
 
   /**
@@ -336,14 +337,14 @@ export class ProductsService {
    * @returns {Observable<any>} Changes in the Delinquency Range
    */
   deleteDelinquencyRange(delinquencyRateId: any): Observable<any> {
-    return this.http.delete(`/delinquency/ranges/${delinquencyRateId}`);
+    return this.http.delete(`${environment.serverUrl}/delinquency/ranges/${delinquencyRateId}`);
   }
 
   /**
    * @returns {Observable<any>} Delinquency Bucket data
    */
   getDelinquencyBuckets(): Observable<any> {
-    return this.http.get('/delinquency/buckets');
+    return this.http.get(`${environment.serverUrl}/delinquency/buckets`);
   }
 
   /**
@@ -351,7 +352,7 @@ export class ProductsService {
    * @returns {Observable<any>} Delinquency Bucket data.
    */
   getDelinquencyBucket(delinquencyBucketId: any): Observable<any> {
-    return this.http.get(`/delinquency/buckets/${delinquencyBucketId}`);
+    return this.http.get(`${environment.serverUrl}/delinquency/buckets/${delinquencyBucketId}`);
   }
 
   /**
@@ -359,7 +360,7 @@ export class ProductsService {
    * @returns {Observable<any>} Delinquency Bucket Resource Id
    */
   createDelinquencyBucket(payload: any): Observable<any> {
-    return this.http.post('/delinquency/buckets', payload);
+    return this.http.post(`${environment.serverUrl}/delinquency/buckets`, payload);
   }
 
   /**
@@ -368,7 +369,7 @@ export class ProductsService {
    * @returns {Observable<any>} Changes in the Delinquency Bucket
    */
   updateDelinquencyBucket(delinquencyBucketId: any, payload: any): Observable<any> {
-    return this.http.put(`/delinquency/buckets/${delinquencyBucketId}`, payload);
+    return this.http.put(`${environment.serverUrl}/delinquency/buckets/${delinquencyBucketId}`, payload);
   }
 
   /**
@@ -376,7 +377,7 @@ export class ProductsService {
    * @returns {Observable<any>} Changes in the Delinquency Bucket
    */
   deleteDelinquencyBucket(delinquencyBucketId: any): Observable<any> {
-    return this.http.delete(`/delinquency/buckets/${delinquencyBucketId}`);
+    return this.http.delete(`${environment.serverUrl}/delinquency/buckets/${delinquencyBucketId}`);
   }
 
   /**
@@ -385,14 +386,14 @@ export class ProductsService {
   getProductMixes(): Observable<any> {
     let httpParams = new HttpParams();
     httpParams = httpParams.set('associations', 'productMixes');
-    return this.http.get('/loanproducts', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/loanproducts`, { params: httpParams });
   }
 
   /**
    * @returns {Observable<any>} Floating Rates data.
    */
   getFloatingRates(): Observable<any> {
-    return this.http.get('/floatingrates');
+    return this.http.get(`${environment.serverUrl}/floatingrates`);
   }
 
   /**
@@ -400,7 +401,7 @@ export class ProductsService {
    * @returns {Observable<any>}
    */
   createFloatingRate(floatingRate: any): Observable<any> {
-    return this.http.post('/floatingrates', floatingRate);
+    return this.http.post(`${environment.serverUrl}/floatingrates`, floatingRate);
   }
 
   /**
@@ -408,7 +409,7 @@ export class ProductsService {
    * @returns {Observable<any>}
    */
   getFloatingRate(floatingRateId: string): Observable<any> {
-    return this.http.get(`/floatingrates/${floatingRateId}`);
+    return this.http.get(`${environment.serverUrl}/floatingrates/${floatingRateId}`);
   }
 
   /**
@@ -417,7 +418,7 @@ export class ProductsService {
    * @returns {Observable<any>}
    */
   updateFloatingRate(floatingRateId: string, floatingRate: any): Observable<any> {
-    return this.http.put(`/floatingrates/${floatingRateId}`, floatingRate);
+    return this.http.put(`${environment.serverUrl}/floatingrates/${floatingRateId}`, floatingRate);
   }
 
   /**
@@ -425,7 +426,7 @@ export class ProductsService {
    * @returns {Observable<any>} Product.
    */
   getProductMix(productId: string): Observable<any> {
-    return this.http.get(`/loanproducts/${productId}/productmix`);
+    return this.http.get(`${environment.serverUrl}/loanproducts/${productId}/productmix`);
   }
 
   /*
@@ -434,7 +435,7 @@ export class ProductsService {
   getProductsMixTemplate(): Observable<any> {
     let httpParams = new HttpParams();
     httpParams = httpParams.set('isProductMixTemplate', 'true');
-    return this.http.get('/loanproducts/template', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/loanproducts/template`, { params: httpParams });
   }
 
   /**
@@ -444,7 +445,7 @@ export class ProductsService {
   getProductMixTemplate(productMixId: string): Observable<any> {
     let httpParams = new HttpParams();
     httpParams = httpParams.set('template', 'true');
-    return this.http.get(`/loanproducts/${productMixId}/productmix`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/loanproducts/${productMixId}/productmix`, { params: httpParams });
   }
 
   /**
@@ -453,7 +454,7 @@ export class ProductsService {
    * @returns {Observable<any>}
    */
   createProductMix(productMix: any, productMixId: string): Observable<any> {
-    return this.http.post(`/loanproducts/${productMixId}/productmix`, productMix);
+    return this.http.post(`${environment.serverUrl}/loanproducts/${productMixId}/productmix`, productMix);
   }
 
   /**
@@ -462,7 +463,7 @@ export class ProductsService {
    * @returns {Observable<any>}
    */
   updateProductMix(productMix: any, productMixId: string): Observable<any> {
-    return this.http.put(`/loanproducts/${productMixId}/productmix`, productMix);
+    return this.http.put(`${environment.serverUrl}/loanproducts/${productMixId}/productmix`, productMix);
   }
 
   /**
@@ -470,7 +471,7 @@ export class ProductsService {
    * @returns {Observable<any>}
    */
   deleteProductMix(productMixId: string): Observable<any> {
-    return this.http.delete(`/loanproducts/${productMixId}/productmix`);
+    return this.http.delete(`${environment.serverUrl}/loanproducts/${productMixId}/productmix`);
   }
 
   /*
@@ -479,34 +480,34 @@ export class ProductsService {
    */
   getAllInterestRateCharts(productId: string): Observable<any> {
     const httpParams = new HttpParams().set('productId', productId);
-    return this.http.get(`/interestratecharts`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/interestratecharts`, { params: httpParams });
   }
 
   createRecurringDepositProduct(recurringDepositProduct: any): Observable<any> {
-    return this.http.post('/recurringdepositproducts', recurringDepositProduct);
+    return this.http.post(`${environment.serverUrl}/recurringdepositproducts`, recurringDepositProduct);
   }
 
   getRecurringDepositProductAndTemplate(recurringDepositProductId: any) {
     const httpParams = new HttpParams().set('template', 'true');
-    return this.http.get(`/recurringdepositproducts/${recurringDepositProductId}`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/recurringdepositproducts/${recurringDepositProductId}`, { params: httpParams });
   }
 
   updateRecurringDepositProduct(recurringDepositProductId: any, recurringDepositProduct: any): Observable<any> {
-    return this.http.put(`/recurringdepositproducts/${recurringDepositProductId}`, recurringDepositProduct);
+    return this.http.put(`${environment.serverUrl}/recurringdepositproducts/${recurringDepositProductId}`, recurringDepositProduct);
   }
 
   /**
    * @returns {Observable<any>} Collateral data.
    */
   getCollaterals(): Observable<any> {
-    return this.http.get('/collateral-management');
+    return this.http.get(`${environment.serverUrl}/collateral-management`);
   }
 
   /**
    * @returns {Observable<any>} Collateral Template.
    */
   getCollateralTemplate(): Observable<any> {
-    return this.http.get('/collateral-management/template');
+    return this.http.get(`${environment.serverUrl}/collateral-management/template`);
   }
 
   /**
@@ -515,7 +516,7 @@ export class ProductsService {
    */
   getCollateral(collateralId: string, template: boolean = false): Observable<any> {
     const httpParams = new HttpParams().set('template', template.toString());
-    return this.http.get(`/collateral-management/${collateralId}`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/collateral-management/${collateralId}`, { params: httpParams });
   }
 
   /**
@@ -523,7 +524,7 @@ export class ProductsService {
    * @param collateral  Collateral Data to be updated.
    */
   updateCollateral(collateralId: string, collateral: any): Observable<any> {
-    return this.http.put(`/collateral-management/${collateralId}`, collateral);
+    return this.http.put(`${environment.serverUrl}/collateral-management/${collateralId}`, collateral);
   }
 
   /**
@@ -531,7 +532,7 @@ export class ProductsService {
    * @returns {Observable<any>}
    */
   deleteCollateral(collateralId: string): Observable<any> {
-    return this.http.delete(`/collateral-management/${collateralId}`);
+    return this.http.delete(`${environment.serverUrl}/collateral-management/${collateralId}`);
   }
 
   /**
@@ -539,7 +540,7 @@ export class ProductsService {
    * @returns {Observable<any>}
    */
   createCollateral(collateral: any): Observable<any> {
-    return this.http.post('/collateral-management', collateral);
+    return this.http.post(`${environment.serverUrl}/collateral-management`, collateral);
   }
 
   /**
@@ -548,7 +549,7 @@ export class ProductsService {
    */
   getProductDatatables(product: string): Observable<any> {
     const httpParams = new HttpParams().set('apptable', product);
-    return this.http.get(`/datatables`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/datatables`, { params: httpParams });
   }
 
   /**
@@ -557,7 +558,7 @@ export class ProductsService {
    */
   getProductDatatable(productId: string, datatableName: string) {
     const httpParams = new HttpParams().set('genericResultSet', 'true');
-    return this.http.get(`/datatables/${datatableName}/${productId}`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/datatables/${datatableName}/${productId}`, { params: httpParams });
   }
 
   /**
@@ -568,7 +569,7 @@ export class ProductsService {
    */
   addProductDatatableEntry(productId: string, datatableName: string, data: any) {
     const httpParams = new HttpParams().set('genericResultSet', 'true');
-    return this.http.post(`/datatables/${datatableName}/${productId}`, data, { params: httpParams });
+    return this.http.post(`${environment.serverUrl}/datatables/${datatableName}/${productId}`, data, { params: httpParams });
   }
 
   /**
@@ -579,7 +580,7 @@ export class ProductsService {
    */
   editProductDatatableEntry(productId: string, datatableName: string, data: any) {
     const httpParams = new HttpParams().set('genericResultSet', 'true');
-    return this.http.put(`/datatables/${datatableName}/${productId}`, data, { params: httpParams });
+    return this.http.put(`${environment.serverUrl}/datatables/${datatableName}/${productId}`, data, { params: httpParams });
   }
 
   /**
@@ -589,7 +590,7 @@ export class ProductsService {
    */
   deleteDatatableContent(productId: string, datatableName: string) {
     const httpParams = new HttpParams().set('genericResultSet', 'true');
-    return this.http.delete(`/datatables/${datatableName}/${productId}`, { params: httpParams });
+    return this.http.delete(`${environment.serverUrl}/datatables/${datatableName}/${productId}`, { params: httpParams });
   }
 
 }

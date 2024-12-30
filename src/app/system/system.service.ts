@@ -5,6 +5,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 /** rxjs Imports */
 import { Observable } from 'rxjs';
 import { RunJobWithParamPayloadType } from './manage-jobs/scheduler-jobs/custom-parameters-popover/custom-parameters-popover.component';
+import { environment } from 'environments/environment';
 
 /**
  * System service.
@@ -24,14 +25,14 @@ export class SystemService {
    * @returns {Observable<any>} Data tables.
    */
   getDataTables(): Observable<any> {
-    return this.http.get('/datatables');
+    return this.http.get(`${environment.serverUrl}/datatables`);
   }
 
   /**
    * @returns {Observable<any>} Hooks.
    */
   getHooks(): Observable<any> {
-    return this.http.get('/hooks');
+    return this.http.get(`${environment.serverUrl}/hooks`);
   }
 
   /**
@@ -39,14 +40,14 @@ export class SystemService {
    * @returns {Observable<any>}
    */
   getHook(hookId: string): Observable<any> {
-    return this.http.get(`/hooks/${hookId}`);
+    return this.http.get(`${environment.serverUrl}/hooks/${hookId}`);
   }
 
   /**
    * @returns {Observable<any>} Hooks Template.
    */
   getHooksTemplate(): Observable<any> {
-    return this.http.get('/hooks/template');
+    return this.http.get(`${environment.serverUrl}/hooks/template`);
   }
 
   /**
@@ -54,7 +55,7 @@ export class SystemService {
    * @returns {Observable<any>}
    */
   createHook(hook: any): Observable<any> {
-    return this.http.post('/hooks', hook);
+    return this.http.post(`${environment.serverUrl}/hooks`, hook);
   }
 
   /**
@@ -63,7 +64,7 @@ export class SystemService {
    * @returns {Observable<any>}
    */
   updateHook(hookId: string, hook: any): Observable<any> {
-    return this.http.put(`/hooks/${hookId}`, hook);
+    return this.http.put(`${environment.serverUrl}/hooks/${hookId}`, hook);
   }
 
   /**
@@ -71,21 +72,21 @@ export class SystemService {
    * @returns {Observable<any>}
    */
   deleteHook(hookId: string): Observable<any> {
-    return this.http.delete(`/hooks/${hookId}`);
+    return this.http.delete(`${environment.serverUrl}/hooks/${hookId}`);
   }
 
   /**
    * @returns {Observable<any>} Fetches Roles and Permissions
    */
   getRoles(): Observable<any> {
-    return this.http.get('/roles');
+    return this.http.get(`${environment.serverUrl}/roles`);
   }
 
   /**
    * @returns {Observable<any>} Fetches Roles and Permissions
    */
   getRole(roleId: any): Observable<any> {
-    return this.http.get(`/roles/${roleId}/permissions`);
+    return this.http.get(`${environment.serverUrl}/roles/${roleId}/permissions`);
   }
 
   /**
@@ -94,7 +95,7 @@ export class SystemService {
    * @returns {Observable<any>}
    */
   updateRole(role: any, roleId: string): Observable<any> {
-    return this.http.put(`/roles/${roleId}`, role);
+    return this.http.put(`${environment.serverUrl}/roles/${roleId}`, role);
   }
 
   /**
@@ -103,7 +104,7 @@ export class SystemService {
    * @returns {Observable<any>}
    */
   updateRolePermission(roleId: any, roleValueChanges: any): Observable<any> {
-    return this.http.put(`/roles/${roleId}/permissions`, roleValueChanges);
+    return this.http.put(`${environment.serverUrl}/roles/${roleId}/permissions`, roleValueChanges);
   }
 
   /**
@@ -111,7 +112,7 @@ export class SystemService {
    * @returns {Observable<any>}
    */
   deleteRole(roleId: string): Observable<any> {
-    return this.http.delete(`/roles/${roleId}`);
+    return this.http.delete(`${environment.serverUrl}/roles/${roleId}`);
   }
 
   /**
@@ -119,7 +120,7 @@ export class SystemService {
    * @returns {Observable<any>}
    */
   createRole(role: any): Observable<any> {
-    return this.http.post('/roles', role);
+    return this.http.post(`${environment.serverUrl}/roles`, role);
   }
 
   /**
@@ -128,7 +129,7 @@ export class SystemService {
    */
   enableRole(roleId: string): Observable<any> {
     const httpParams = new HttpParams().set('command', 'enable');
-    return this.http.post(`/roles/${roleId}`, {} , { params: httpParams });
+    return this.http.post(`${environment.serverUrl}/roles/${roleId}`, {} , { params: httpParams });
   }
 
   /**
@@ -137,14 +138,14 @@ export class SystemService {
    */
   disableRole(roleId: string): Observable<any> {
     const httpParams = new HttpParams().set('command', 'disable');
-    return this.http.post(`/roles/${roleId}`, {}, { params: httpParams });
+    return this.http.post(`${environment.serverUrl}/roles/${roleId}`, {}, { params: httpParams });
   }
 
   /**
    * @returns {Observable<any>} Fetches Codes.
    */
   getCodes(): Observable<any> {
-    return this.http.get('/codes');
+    return this.http.get(`${environment.serverUrl}/codes`);
   }
 
   /**
@@ -152,7 +153,7 @@ export class SystemService {
    * @returns {Observable<any>} Fetches Code.
    */
   getCode(codeId: string): Observable<any> {
-    return this.http.get(`/codes/${codeId}`);
+    return this.http.get(`${environment.serverUrl}/codes/${codeId}`);
   }
 
   /**
@@ -161,7 +162,7 @@ export class SystemService {
    * @returns {Observable<any>}
    */
   updateCode(code: any, codeId: string): Observable<any> {
-    return this.http.put(`/codes/${codeId}`, code);
+    return this.http.put(`${environment.serverUrl}/codes/${codeId}`, code);
   }
 
   /**
@@ -169,7 +170,7 @@ export class SystemService {
    * @returns {Observable<any>} Code Values.
    */
   getCodeValues(codeId: string): Observable<any> {
-    return this.http.get(`/codes/${codeId}/codevalues`);
+    return this.http.get(`${environment.serverUrl}/codes/${codeId}/codevalues`);
   }
 
   /**
@@ -178,7 +179,7 @@ export class SystemService {
    * @returns {Observable<any>}
    */
   deleteCodeValue(codeId: string, codeValueId: string): Observable<any> {
-    return this.http.delete(`/codes/${codeId}/codevalues/${codeValueId}`);
+    return this.http.delete(`${environment.serverUrl}/codes/${codeId}/codevalues/${codeValueId}`);
   }
 
   /**
@@ -188,7 +189,7 @@ export class SystemService {
    * @returns {Observable<any>}
    */
   updateCodeValue(codeId: string, codeValueId: string, codeValueChanges: any): Observable<any> {
-    return this.http.put(`/codes/${codeId}/codevalues/${codeValueId}`, codeValueChanges);
+    return this.http.put(`${environment.serverUrl}/codes/${codeId}/codevalues/${codeValueId}`, codeValueChanges);
   }
 
   /**
@@ -197,7 +198,7 @@ export class SystemService {
    * @returns {Observable<any>}
    */
   createCodeValue(codeId: string, codeValue: any): Observable<any> {
-    return this.http.post(`/codes/${codeId}/codevalues`, codeValue);
+    return this.http.post(`${environment.serverUrl}/codes/${codeId}/codevalues`, codeValue);
   }
 
   /**
@@ -205,14 +206,14 @@ export class SystemService {
    * @returns {Observable<any>}
    */
   deleteCode(codeId: string): Observable<any> {
-    return this.http.delete(`/codes/${codeId}`);
+    return this.http.delete(`${environment.serverUrl}/codes/${codeId}`);
   }
 
   /**
    * @returns {Observable<any>} Fetches Surveys.
    */
   getSurveys(): Observable<any> {
-    return this.http.get('/surveys');
+    return this.http.get(`${environment.serverUrl}/surveys`);
   }
 
   /**
@@ -220,7 +221,7 @@ export class SystemService {
    * @returns {Observable<any>}
    */
   createSurvey(survey: any): Observable<any> {
-    return this.http.post('/surveys', survey);
+    return this.http.post(`${environment.serverUrl}/surveys`, survey);
   }
 
   /**
@@ -228,7 +229,7 @@ export class SystemService {
    * @returns {Observable<any>} Survey.
    */
   getSurvey(surveyId: string): Observable<any> {
-    return this.http.get(`/surveys/${surveyId}?template=true`);
+    return this.http.get(`${environment.serverUrl}/surveys/${surveyId}?template=true`);
   }
 
   /**
@@ -237,7 +238,7 @@ export class SystemService {
    * @returns {Observable<any>}
    */
   editSurvey(surveyId: string, survey: any): Observable<any> {
-    return this.http.put(`/surveys/${surveyId}`, survey);
+    return this.http.put(`${environment.serverUrl}/surveys/${surveyId}`, survey);
   }
 
   /**
@@ -246,7 +247,7 @@ export class SystemService {
    * @returns {Observable<any>}
    */
   activateSurvey(surveyId: number): Observable<any> {
-    return this.http.post(`/surveys/${surveyId}?command=activate`, null);
+    return this.http.post(`${environment.serverUrl}/surveys/${surveyId}?command=activate`, null);
   }
 
   /**
@@ -255,7 +256,7 @@ export class SystemService {
    * @returns {Observable<any>}
    */
   deactivateSurvey(surveyId: number): Observable<any> {
-    return this.http.post(`/surveys/${surveyId}?command=deactivate`, null);
+    return this.http.post(`${environment.serverUrl}/surveys/${surveyId}?command=deactivate`, null);
   }
 
 
@@ -263,49 +264,49 @@ export class SystemService {
    * @returns {Observable<any>} Fetches Jobs.
    */
   getJobs(): Observable<any> {
-    return this.http.get('/jobs');
+    return this.http.get(`${environment.serverUrl}/jobs`);
   }
 
   /**
    * @returns {Observable<any>} Fetches Jobs.
    */
   getWorkflowJobNames(): Observable<any> {
-    return this.http.get('/jobs/names');
+    return this.http.get(`${environment.serverUrl}/jobs/names`);
   }
 
   /**
    * @returns {Observable<any>} Fetches Jobs.
    */
   getWorkflowJobSteps(jobName: String): Observable<any> {
-    return this.http.get(`/jobs/${jobName}/steps`);
+    return this.http.get(`${environment.serverUrl}/jobs/${jobName}/steps`);
   }
 
   /**
    * @returns {Observable<any>} Updates Jobs.
    */
   putWorkflowJobSteps(jobName: String, payload: any): Observable<any> {
-    return this.http.put(`/jobs/${jobName}/steps`, payload);
+    return this.http.put(`${environment.serverUrl}/jobs/${jobName}/steps`, payload);
   }
 
   /**
    * @returns {Observable<any>} Updates Jobs.
    */
   runInlineCOB(jobName: String, payload: any): Observable<any> {
-    return this.http.post(`/jobs/${jobName}/inline`, payload);
+    return this.http.post(`${environment.serverUrl}/jobs/${jobName}/inline`, payload);
   }
 
   /**
    * @returns {Observable<any>} Fetches Steps.
    */
   getAvailablesJobSteps(jobCategory: String): Observable<any> {
-    return this.http.get(`/jobs/${jobCategory}/available-steps`);
+    return this.http.get(`${environment.serverUrl}/jobs/${jobCategory}/available-steps`);
   }
 
   /**
    * @returns {Observable<any>} Fetches Scheduler.
    */
   getScheduler(): Observable<any> {
-    return this.http.get('/scheduler');
+    return this.http.get(`${environment.serverUrl}/scheduler`);
   }
 
   /**
@@ -313,7 +314,7 @@ export class SystemService {
    * @returns {Observable<any>} Fetches Scheduler Job.
    */
   getSelectedJob(jobId: string): Observable<any> {
-    return this.http.get(`/jobs/${jobId}`);
+    return this.http.get(`${environment.serverUrl}/jobs/${jobId}`);
   }
 
   /**
@@ -322,7 +323,7 @@ export class SystemService {
    * @returns {Observable<any>}
    */
   runCommandOnScheduler(command: string): Observable<any> {
-    return this.http.post(`/scheduler?command=` + command, this.emptyPayload);
+    return this.http.post(`${environment.serverUrl}/scheduler?command=` + command, this.emptyPayload);
   }
 
   /**
@@ -331,7 +332,7 @@ export class SystemService {
    * @returns {Observable<any>}
    */
    updateScheduler(jobId: string, job: any): Observable<any> {
-    return this.http.put(`/jobs/${jobId}`, job);
+    return this.http.put(`${environment.serverUrl}/jobs/${jobId}`, job);
   }
 
   /**
@@ -339,7 +340,7 @@ export class SystemService {
    * @returns {Observable<any>}
    */
    runSelectedJob(jobId: string): Promise<any> {
-    return this.http.post(`/jobs/${jobId}?command=executeJob`, this.emptyPayload, { observe: 'response' }).toPromise();
+    return this.http.post(`${environment.serverUrl}/jobs/${jobId}?command=executeJob`, this.emptyPayload, { observe: 'response' }).toPromise();
   }
 
   /**
@@ -347,7 +348,7 @@ export class SystemService {
    * @returns {Observable<any>}
    */
   runSelectedJobWithParameters(jobId: string, jobParameters: RunJobWithParamPayloadType): Promise<any> {
-    return this.http.post(`/jobs/${jobId}?command=executeJob`, jobParameters, { observe: 'response' }).toPromise();
+    return this.http.post(`${environment.serverUrl}/jobs/${jobId}?command=executeJob`, jobParameters, { observe: 'response' }).toPromise();
   }
 
   /*
@@ -355,7 +356,7 @@ export class SystemService {
    * @returns {Observable<any>} Fetches History of the Job.
    */
   getHistoryScheduler(jobId: string): Observable<any> {
-    return this.http.get(`/jobs/${jobId}/runhistory`);
+    return this.http.get(`${environment.serverUrl}/jobs/${jobId}/runhistory`);
   }
 
   /**
@@ -363,7 +364,7 @@ export class SystemService {
    * @returns {Observable<any>}
    */
   createCode(code: any): Observable<any> {
-    return this.http.post('/codes', code);
+    return this.http.post(`${environment.serverUrl}/codes`, code);
   }
 
   /**
@@ -371,7 +372,7 @@ export class SystemService {
    * @return {Observable<any>}
    */
   createDataTable(dataTable: any): Observable<any> {
-    return this.http.post('/datatables', dataTable);
+    return this.http.post(`${environment.serverUrl}/datatables`, dataTable);
   }
 
   /**
@@ -379,7 +380,7 @@ export class SystemService {
    * @return {Observable<any>}
    */
   getDataTable(dataTableName: string): Observable<any> {
-    return this.http.get(`/datatables/${dataTableName}`);
+    return this.http.get(`${environment.serverUrl}/datatables/${dataTableName}`);
   }
 
   /**
@@ -387,7 +388,7 @@ export class SystemService {
    * @return {Observable<any>}
    */
   deleteDataTable(dataTableName: string): Observable<any> {
-    return this.http.delete(`/datatables/${dataTableName}`);
+    return this.http.delete(`${environment.serverUrl}/datatables/${dataTableName}`);
   }
 
   /**
@@ -396,21 +397,21 @@ export class SystemService {
    * @return {Observable<any>}
    */
   updateDataTable(dataTable: any, dataTableName: string): Observable<any> {
-    return this.http.put(`/datatables/${dataTableName}`, dataTable);
+    return this.http.put(`${environment.serverUrl}/datatables/${dataTableName}`, dataTable);
   }
 
   /**
    * @returns {Observable<any>} Business Date data.
    */
   getBusinessDates(): Observable<any> {
-    return this.http.get('/businessdate');
+    return this.http.get(`${environment.serverUrl}/businessdate`);
   }
 
   /**
    * @returns {Observable<any>} Business Date data using a type BUSINESS_DATE / COB_DATE.
    */
    getBusinessDate(dateType: string): Observable<any> {
-    return this.http.get(`/businessdate/${dateType}`);
+    return this.http.get(`${environment.serverUrl}/businessdate/${dateType}`);
   }
 
   /**
@@ -418,14 +419,14 @@ export class SystemService {
    * @returns {Observable<any>}
    */
    updateBusinessDate(dateData: any): Observable<any> {
-    return this.http.post(`/businessdate`, dateData);
+    return this.http.post(`${environment.serverUrl}/businessdate`, dateData);
   }
 
   /**
    * @returns {Observable<any>} Configurations data.
    */
   getConfigurations(): Observable<any> {
-    return this.http.get('/configurations');
+    return this.http.get(`${environment.serverUrl}/configurations`);
   }
 
   /**
@@ -433,7 +434,7 @@ export class SystemService {
    * @returns {Observable<any>} Configuration.
    */
   getConfiguration(configurationId: string): Observable<any> {
-    return this.http.get(`/configurations/${configurationId}`);
+    return this.http.get(`${environment.serverUrl}/configurations/${configurationId}`);
   }
 
   /**
@@ -441,7 +442,7 @@ export class SystemService {
    * @returns {Observable<any>} Configuration.
    */
    getConfigurationByName(configurationName: string): Observable<any> {
-    return this.http.get(`/configurations/name/${configurationName}`);
+    return this.http.get(`${environment.serverUrl}/configurations/name/${configurationName}`);
   }
 
   /**
@@ -450,7 +451,7 @@ export class SystemService {
    * @returns {Observable<any>}
    */
   updateConfiguration(configurationId: string, configuration: any): Observable<any> {
-    return this.http.put(`/configurations/${configurationId}`, configuration);
+    return this.http.put(`${environment.serverUrl}/configurations/${configurationId}`, configuration);
   }
 
   /**
@@ -458,7 +459,7 @@ export class SystemService {
    * @returns {Observable<any>} External Configuration.
    */
   getExternalConfiguration(externalConfigurationName: string): Observable<any> {
-    return this.http.get(`/externalservice/${externalConfigurationName}`);
+    return this.http.get(`${environment.serverUrl}/externalservice/${externalConfigurationName}`);
   }
 
   /**
@@ -467,21 +468,21 @@ export class SystemService {
    * @returns {Observable<any>}
    */
   updateExternalConfiguration(externalConfigurationName: string, externalConfiguration: any): Observable<any> {
-    return this.http.put(`/externalservice/${externalConfigurationName}`, externalConfiguration);
+    return this.http.put(`${environment.serverUrl}/externalservice/${externalConfigurationName}`, externalConfiguration);
   }
 
   /**
    * @returns {Observable<any>} Account number preferences.
    */
   getAccountNumberPreferences(): Observable<any> {
-    return this.http.get('/accountnumberformats');
+    return this.http.get(`${environment.serverUrl}/accountnumberformats`);
   }
 
   /**
    * @returns {Observable<any>} Fetches Account Number Preferences Template.
    */
   getAccountNumberPreferencesTemplate(): Observable<any> {
-    return this.http.get('/accountnumberformats/template');
+    return this.http.get(`${environment.serverUrl}/accountnumberformats/template`);
   }
 
   /**
@@ -489,7 +490,7 @@ export class SystemService {
    * @returns {Observable<any>} Fetches Account Number Preference.
    */
   getAccountNumberPreference(accountNumberPreferenceId: string): Observable<any> {
-    return this.http.get(`/accountnumberformats/${accountNumberPreferenceId}`);
+    return this.http.get(`${environment.serverUrl}/accountnumberformats/${accountNumberPreferenceId}`);
   }
 
   /**
@@ -497,7 +498,7 @@ export class SystemService {
    * @returns {Observable<any>}
    */
   createAccountNumberPreference(accountNumberPreference: any): Observable<any> {
-    return this.http.post('/accountnumberformats', accountNumberPreference);
+    return this.http.post(`${environment.serverUrl}/accountnumberformats`, accountNumberPreference);
   }
 
   /**
@@ -505,7 +506,7 @@ export class SystemService {
    * @returns {Observable<any>}
    */
   deleteAccountNumberPreference(accountNumberPreferenceId: string): Observable<any> {
-    return this.http.delete(`/accountnumberformats/${accountNumberPreferenceId}`);
+    return this.http.delete(`${environment.serverUrl}/accountnumberformats/${accountNumberPreferenceId}`);
   }
 
   /**
@@ -514,14 +515,14 @@ export class SystemService {
    * @returns {Observable<any>}
    */
   updateAccountNumberPreference(accountNumberPreferenceId: string, accountNumberPreferenceChanges: any): Observable<any> {
-    return this.http.put(`/accountnumberformats/${accountNumberPreferenceId}`, accountNumberPreferenceChanges);
+    return this.http.put(`${environment.serverUrl}/accountnumberformats/${accountNumberPreferenceId}`, accountNumberPreferenceChanges);
   }
 
   /**
    * @returns {Observable<any>} Reports.
    */
   getReports(): Observable<any> {
-    return this.http.get('/reports');
+    return this.http.get(`${environment.serverUrl}/reports`);
   }
 
   /**
@@ -529,14 +530,14 @@ export class SystemService {
    * @returns {Observable<any>} Report.
    */
   getReport(reportId: string): Observable<any> {
-    return this.http.get(`/reports/${reportId}?template=true`);
+    return this.http.get(`${environment.serverUrl}/reports/${reportId}?template=true`);
   }
 
   /**
    * @returns {Observable<any>} Report Template.
    */
   getReportTemplate(): Observable<any> {
-    return this.http.get('/reports/template');
+    return this.http.get(`${environment.serverUrl}/reports/template`);
   }
 
   /**
@@ -544,7 +545,7 @@ export class SystemService {
    * @returns {Observable<any>}
    */
   createReport(report: any): Observable<any> {
-    return this.http.post('/reports', report);
+    return this.http.post(`${environment.serverUrl}/reports`, report);
   }
 
   /**
@@ -553,7 +554,7 @@ export class SystemService {
    * @returns {Observable<any>}
    */
   updateReport(reportId: string, report: any): Observable<any> {
-    return this.http.put(`/reports/${reportId}`, report);
+    return this.http.put(`${environment.serverUrl}/reports/${reportId}`, report);
   }
 
   /**
@@ -561,7 +562,7 @@ export class SystemService {
    * @returns {Observable<any>}
    */
   deleteReport(reportId: string): Observable<any> {
-    return this.http.delete(`/reports/${reportId}`);
+    return this.http.delete(`${environment.serverUrl}/reports/${reportId}`);
   }
 
   /**
@@ -585,7 +586,7 @@ export class SystemService {
         httpParams = httpParams.set(filter.type, filter.value);
       }
     });
-    return this.http.get('/audits', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/audits`, { params: httpParams });
   }
 
   /**
@@ -593,21 +594,21 @@ export class SystemService {
    * @returns {Observable<any>}
    */
   getAuditTrail(auditTrailId: string): Observable<any> {
-    return this.http.get(`/audits/${auditTrailId}`);
+    return this.http.get(`${environment.serverUrl}/audits/${auditTrailId}`);
   }
 
   /**
    * @returns {Observable<any>} Audit Trail Search Template.
    */
   getAuditTrailSearchTemplate(): Observable<any> {
-    return this.http.get('/audits/searchtemplate');
+    return this.http.get(`${environment.serverUrl}/audits/searchtemplate`);
   }
 
   /**
    * @returns {Observable<any>} Fetches Mapping Data.
    */
   getEntityMappings(): Observable<any> {
-    return this.http.get('/entitytoentitymapping');
+    return this.http.get(`${environment.serverUrl}/entitytoentitymapping`);
   }
 
   /**
@@ -617,7 +618,7 @@ export class SystemService {
    * @returns {Observable<any>} fetches the list of mappings for particular mapping type
    */
   getEntitytoEntityData(mappingId: number, fromId: number, toId: number): Observable<any> {
-    return this.http.get(`/entitytoentitymapping/${mappingId}/${fromId}/${toId}`);
+    return this.http.get(`${environment.serverUrl}/entitytoentitymapping/${mappingId}/${fromId}/${toId}`);
   }
 
   /**
@@ -625,7 +626,7 @@ export class SystemService {
    * @param mapId Mapping Id
    */
   getMapIdData(mapId: number): Observable<any> {
-    return this.http.get(`/entitytoentitymapping/${mapId}`);
+    return this.http.get(`${environment.serverUrl}/entitytoentitymapping/${mapId}`);
   }
 
 
@@ -636,7 +637,7 @@ export class SystemService {
    * @returns {Observable<any>} resolved data
    */
   createMapping(mapType: any, mapData: any): Observable<any> {
-    return this.http.post(`/entitytoentitymapping/${mapType}`, mapData);
+    return this.http.post(`${environment.serverUrl}/entitytoentitymapping/${mapType}`, mapData);
   }
 
   /**
@@ -646,7 +647,7 @@ export class SystemService {
    * @returns {Observable<any>} resolved data
    */
   editMapping(mapId: any, mapData: any): Observable<any> {
-    return this.http.put(`/entitytoentitymapping/${mapId}`, mapData);
+    return this.http.put(`${environment.serverUrl}/entitytoentitymapping/${mapId}`, mapData);
   }
 
   /**
@@ -654,35 +655,35 @@ export class SystemService {
    * @param mapId Map Id
    */
   deleteMapping(mapId: any): Observable<any> {
-    return this.http.delete(`/entitytoentitymapping/${mapId}`);
+    return this.http.delete(`${environment.serverUrl}/entitytoentitymapping/${mapId}`);
   }
 
   /**
    * @returns {Observable<any>} Offices data
    */
   getOffices(): Observable<any> {
-    return this.http.get('/offices');
+    return this.http.get(`${environment.serverUrl}/offices`);
   }
 
   /**
    * @returns {Observable<any>} Loan products data.
    */
   getLoanProducts(): Observable<any> {
-    return this.http.get('/loanproducts');
+    return this.http.get(`${environment.serverUrl}/loanproducts`);
   }
 
   /**
    * @returns {Observable<any>} Saving products data
    */
   getSavingProducts(): Observable<any> {
-    return this.http.get('/savingsproducts');
+    return this.http.get(`${environment.serverUrl}/savingsproducts`);
   }
 
   /**
    * @returns {Observable<any>} Charges data
    */
   getCharges(): Observable<any> {
-    return this.http.get('/charges');
+    return this.http.get(`${environment.serverUrl}/charges`);
   }
 
   /**
@@ -691,7 +692,7 @@ export class SystemService {
   getMakerCheckerPermissions(): Observable<any> {
     const httpParams = new HttpParams()
                       .set('makerCheckerable', 'true');
-    return this.http.get('/permissions', {params: httpParams});
+    return this.http.get('${environment.serverUrl}/permissions', {params: httpParams});
   }
 
   /**
@@ -701,60 +702,60 @@ export class SystemService {
   updateMakerCheckerPermission(data: any): Observable<any> {
     const httpParams = new HttpParams()
                       .set('makerCheckerable', 'true');
-    return this.http.put('/permissions', data, { params: httpParams });
+    return this.http.put(`${environment.serverUrl}/permissions`, data, { params: httpParams });
   }
 
   /**
    * @returns {Observable<any>}
    */
   getExternalEventConfiguration(): Observable<any> {
-    return this.http.get('/externalevents/configuration');
+    return this.http.get(`${environment.serverUrl}/externalevents/configuration`);
   }
 
   /**
    * @returns {Observable<any>}
    */
    putExternalEventConfiguration(payload: any): Observable<any> {
-    return this.http.put('/externalevents/configuration', payload);
+    return this.http.put(`${environment.serverUrl}/externalevents/configuration`, payload);
   }
 
   /** Datatable Entries for Entities */
   getEntityDatatables(appTable: string) {
     const httpParams = new HttpParams().set('apptable', appTable);
-    return this.http.get(`/datatables`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/datatables`, { params: httpParams });
   }
 
   getEntityDatatable(entityId: string, datatableName: string) {
     const httpParams = new HttpParams().set('genericResultSet', 'true');
-    return this.http.get(`/datatables/${datatableName}/${entityId}`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/datatables/${datatableName}/${entityId}`, { params: httpParams });
   }
 
   addEntityDatatableEntry(entityId: string, datatableName: string, data: any) {
     const httpParams = new HttpParams().set('genericResultSet', 'true');
-    return this.http.post(`/datatables/${datatableName}/${entityId}`, data, { params: httpParams });
+    return this.http.post(`${environment.serverUrl}/datatables/${datatableName}/${entityId}`, data, { params: httpParams });
   }
 
   editEntityDatatableEntry(entityId: string, datatableName: string, data: any) {
     const httpParams = new HttpParams().set('genericResultSet', 'true');
-    return this.http.put(`/datatables/${datatableName}/${entityId}`, data, { params: httpParams });
+    return this.http.put(`${environment.serverUrl}/datatables/${datatableName}/${entityId}`, data, { params: httpParams });
   }
 
   deleteDatatableContent(entityId: string, datatableName: string) {
     const httpParams = new HttpParams().set('genericResultSet', 'true');
-    return this.http.delete(`/datatables/${datatableName}/${entityId}`, { params: httpParams });
+    return this.http.delete(`${environment.serverUrl}/datatables/${datatableName}/${entityId}`, { params: httpParams });
   }
 
   deleteDatatableEntry(entityId: string, rowId: string, datatableName: string) {
     const httpParams = new HttpParams().set('genericResultSet', 'true');
-    return this.http.delete(`/datatables/${datatableName}/${entityId}/${rowId}`, { params: httpParams });
+    return this.http.delete(`${environment.serverUrl}/datatables/${datatableName}/${entityId}/${rowId}`, { params: httpParams });
   }
 
   getCOBCatchUpStatus() {
-    return this.http.get(`/loans/is-catch-up-running`);
+    return this.http.get(`${environment.serverUrl}/loans/is-catch-up-running`);
   }
 
   runCOBCatchUp() {
     const emptyData = {};
-    return this.http.post(`/loans/catch-up`, emptyData);
+    return this.http.post(`${environment.serverUrl}/loans/catch-up`, emptyData);
   }
 }

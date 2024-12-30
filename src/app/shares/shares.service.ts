@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';
+import { environment } from 'environments/environment';
 
 /**
  * Shares Service.
@@ -25,7 +26,7 @@ export class SharesService {
    */
   getSharesAccountData(accountId: string, template: boolean): Observable<any> {
     const httpParams = new HttpParams().set('template', template.toString());
-    return this.http.get(`/accounts/share/${accountId}`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/accounts/share/${accountId}`, { params: httpParams });
   }
 
   /**
@@ -36,7 +37,7 @@ export class SharesService {
   getSharesAccountTemplate(clientId: string, productId?: string): Observable<any> {
     let httpParams = new HttpParams().set('clientId', clientId);
     httpParams = productId ? httpParams.set('productId', productId) : httpParams;
-    return this.http.get('/accounts/share/template', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/accounts/share/template`, { params: httpParams });
   }
 
   /**
@@ -53,7 +54,7 @@ export class SharesService {
    * @returns {Observable<any>}
    */
   updateSharesAccount(accountId: string, sharesAccount: any): Observable<any> {
-    return this.http.put(`/accounts/share/${accountId}`, sharesAccount);
+    return this.http.put(`${environment.serverUrl}/accounts/share/${accountId}`, sharesAccount);
   }
 
   /**
@@ -61,7 +62,7 @@ export class SharesService {
    * @returns {Observable<any>}
    */
   deleteSharesAccount(accountId: string): Observable<any> {
-    return this.http.delete(`/accounts/share/${accountId}`);
+    return this.http.delete(`${environment.serverUrl}/accounts/share/${accountId}`);
   }
 
   /**
@@ -72,7 +73,7 @@ export class SharesService {
    */
   executeSharesAccountCommand(accountId: string, command: string, data: any): Observable<any> {
     const httpParams = new HttpParams().set('command', command);
-    return this.http.post(`/accounts/share/${accountId}`, data, { params: httpParams });
+    return this.http.post(`${environment.serverUrl}/accounts/share/${accountId}`, data, { params: httpParams });
   }
 
 }

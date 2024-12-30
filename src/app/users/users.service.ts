@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';
+import { environment } from 'environments/environment';
 
 /**
  * Users service.
@@ -22,14 +23,14 @@ export class UsersService {
    * @returns {Observable<any>} Users data
    */
   getUsers(): Observable<any> {
-    return this.http.get(`/users`);
+    return this.http.get(`${environment.serverUrl}/users`);
   }
 
   /**
    * @returns {Observable<any>} Users template data
    */
   getUsersTemplate(): Observable<any> {
-    return this.http.get('/users/template');
+    return this.http.get(`${environment.serverUrl}/users/template`);
   }
 
   /**
@@ -37,7 +38,7 @@ export class UsersService {
    * @returns {Observable<any>}
    */
   createUser(user: any): Observable<any> {
-    return this.http.post('/users', user);
+    return this.http.post(`${environment.serverUrl}/users`, user);
   }
 
   /**
@@ -46,7 +47,7 @@ export class UsersService {
    * @returns {Observable<any>} User.
    */
   editUser(userId: string, user: any): Observable<any> {
-    return this.http.put(`/users/${userId}`, user);
+    return this.http.put(`${environment.serverUrl}/users/${userId}`, user);
   }
 
   /**
@@ -54,7 +55,7 @@ export class UsersService {
    * @returns {Observable<any>} User.
    */
   getUser(userId: string): Observable<any> {
-    return this.http.get(`/users/${userId}`);
+    return this.http.get(`${environment.serverUrl}/users/${userId}`);
   }
 
   /**
@@ -64,7 +65,7 @@ export class UsersService {
    * @returns {Observable<any>}
    */
   changePassword(userId: string, passwordObj: any) {
-    return this.http.put(`/users/${userId}`, passwordObj);
+    return this.http.put(`${environment.serverUrl}/users/${userId}`, passwordObj);
   }
 
   /**
@@ -72,7 +73,7 @@ export class UsersService {
    * @returns {Observable<any>}
    */
   deleteUser(userId: string): Observable<any> {
-    return this.http.delete(`/users/${userId}`);
+    return this.http.delete(`${environment.serverUrl}/users/${userId}`);
   }
 
   /**
@@ -83,7 +84,7 @@ export class UsersService {
     const httpParams = new HttpParams()
       .set('officeId', officeId.toString())
       .set('status', 'all');
-    return this.http.get('/staff', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/staff`, { params: httpParams });
   }
 
 }

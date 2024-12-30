@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Imports. */
 import { SettingsService } from 'app/settings/settings.service';
+import { environment } from 'environments/environment';
 
 /**
  * Organization service.
@@ -25,14 +26,14 @@ export class OrganizationService {
    * @returns {Observable<any>} Loan Provisioning Criteria data
    */
   getProvisioningCriterias(): Observable<any> {
-    return this.http.get('/provisioningcriteria');
+    return this.http.get(`${environment.serverUrl}/provisioningcriteria`);
   }
 
   /**
    * @returns {Observable<any>} Loan Provisioning Criteria template.
    */
   getProvisioningCriteriaTemplate(): Observable<any> {
-    return this.http.get('/provisioningcriteria/template');
+    return this.http.get(`${environment.serverUrl}/provisioningcriteria/template`);
   }
 
   /**
@@ -41,7 +42,7 @@ export class OrganizationService {
    */
   getProvisioningCriteria(provisioningId: string, template: boolean = false): Observable<any> {
     const httpParams = new HttpParams().set('template', template.toString());
-    return this.http.get(`/provisioningcriteria/${provisioningId}`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/provisioningcriteria/${provisioningId}`, { params: httpParams });
   }
 
   /**
@@ -49,7 +50,7 @@ export class OrganizationService {
    * @returns {Observable<any>}
    */
   createProvisioningCriteria(criteriaData: any): Observable<any> {
-    return this.http.post('/provisioningcriteria', criteriaData);
+    return this.http.post(`${environment.serverUrl}/provisioningcriteria`, criteriaData);
   }
 
   /**
@@ -58,7 +59,7 @@ export class OrganizationService {
    * @returns {Observable<any>}
    */
   updateProvisioningCriteria(criteriaId: any, criteriaData: any): Observable<any> {
-    return this.http.put(`/provisioningcriteria/${criteriaId}`, criteriaData);
+    return this.http.put(`${environment.serverUrl}/provisioningcriteria/${criteriaId}`, criteriaData);
   }
 
   /**
@@ -66,14 +67,14 @@ export class OrganizationService {
    * @returns {Observable<any>}
    */
   deleteProvisioningCriteria(criteriaId: string): Observable<any> {
-    return this.http.delete(`/provisioningcriteria/${criteriaId}`);
+    return this.http.delete(`${environment.serverUrl}/provisioningcriteria/${criteriaId}`);
   }
 
   /**
    * @returns {Observable<any>} Offices data
    */
   getOffices(): Observable<any> {
-    return this.http.get('/offices');
+    return this.http.get(`${environment.serverUrl}/offices`);
   }
 
   /**
@@ -83,7 +84,7 @@ export class OrganizationService {
    */
   getOfficeTemplate(officeId: string): Observable<any> {
     const httpParams = new HttpParams().set('officeId', officeId.toString());
-    return this.http.get(`/loans/loanreassignment/template`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/loans/loanreassignment/template`, { params: httpParams });
   }
 
   /**
@@ -95,7 +96,7 @@ export class OrganizationService {
     const httpParams = new HttpParams()
       .set('fromLoanOfficerId', officerId.toString())
       .set('officeId', officeId.toString());
-    return this.http.get('/loans/loanreassignment/template', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/loans/loanreassignment/template`, { params: httpParams });
   }
 
   /**
@@ -104,7 +105,7 @@ export class OrganizationService {
    * @returns {Observable<any>}
    */
   createLoanReassignment(loanData: any): Observable<any> {
-    return this.http.post('/loans/loanreassignment', loanData);
+    return this.http.post(`${environment.serverUrl}/loans/loanreassignment`, loanData);
   }
 
   /**
@@ -114,7 +115,7 @@ export class OrganizationService {
    */
   getOffice(officeId: string, template: boolean = false): Observable<any> {
     const httpParams = new HttpParams().set('template', template.toString());
-    return this.http.get(`/offices/${officeId}`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/offices/${officeId}`, { params: httpParams });
   }
 
   /**
@@ -122,7 +123,7 @@ export class OrganizationService {
    * @returns {Observable<any>}
    */
   createOffice(office: any): Observable<any> {
-    return this.http.post('/offices', office);
+    return this.http.post(`${environment.serverUrl}/offices`, office);
   }
 
   /**
@@ -131,7 +132,7 @@ export class OrganizationService {
    * @returns {Observable<any>}
    */
   updateOffice(officeId: string, office: any): Observable<any> {
-    return this.http.put(`/offices/${officeId}`, office);
+    return this.http.put(`${environment.serverUrl}/offices/${officeId}`, office);
   }
 
   /**
@@ -139,7 +140,7 @@ export class OrganizationService {
    */
   getOfficeDatatables(): Observable<any> {
     const httpParams = new HttpParams().set('apptable', 'm_office');
-    return this.http.get(`/datatables`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/datatables`, { params: httpParams });
   }
 
   /**
@@ -149,7 +150,7 @@ export class OrganizationService {
    */
   getOfficeDatatable(officeId: string, datatableName: string): Observable<any> {
     const httpParams = new HttpParams().set('genericResultSet', 'true');
-    return this.http.get(`/datatables/${datatableName}/${officeId}`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/datatables/${datatableName}/${officeId}`, { params: httpParams });
   }
 
   /**
@@ -160,7 +161,7 @@ export class OrganizationService {
    */
   addOfficeDatatableEntry(officeId: string, datatableName: string, data: any): Observable<any> {
     const httpParams = new HttpParams().set('genericResultSet', 'true');
-    return this.http.post(`/datatables/${datatableName}/${officeId}`, data, { params: httpParams });
+    return this.http.post(`${environment.serverUrl}/datatables/${datatableName}/${officeId}`, data, { params: httpParams });
   }
 
   /**
@@ -171,7 +172,7 @@ export class OrganizationService {
    */
   editOfficeDatatableEntry(officeId: string, datatableName: string, data: any): Observable<any> {
     const httpParams = new HttpParams().set('genericResultSet', 'true');
-    return this.http.put(`/datatables/${datatableName}/${officeId}`, data, { params: httpParams });
+    return this.http.put(`${environment.serverUrl}/datatables/${datatableName}/${officeId}`, data, { params: httpParams });
   }
 
   /**
@@ -181,7 +182,7 @@ export class OrganizationService {
    */
   deleteDatatableContent(officeId: string, datatableName: string): Observable<any> {
     const httpParams = new HttpParams().set('genericResultSet', 'true');
-    return this.http.delete(`/datatables/${datatableName}/${officeId}`, { params: httpParams });
+    return this.http.delete(`${environment.serverUrl}/datatables/${datatableName}/${officeId}`, { params: httpParams });
   }
 
   /**
@@ -189,7 +190,7 @@ export class OrganizationService {
    */
   getEmployees(): Observable<any> {
     const httpParams = new HttpParams().set('status', 'all');
-    return this.http.get('/staff', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/staff`, { params: httpParams });
   }
 
   /**
@@ -197,7 +198,7 @@ export class OrganizationService {
    * @returns {Observable<any>}
    */
   createEmployee(employee: any): Observable<any> {
-    return this.http.post('/staff', employee);
+    return this.http.post(`${environment.serverUrl}/staff`, employee);
   }
 
   /**
@@ -207,14 +208,14 @@ export class OrganizationService {
    */
   getEmployee(employeeId: string, template: boolean = true): Observable<any> {
     const httpParams = new HttpParams().set('template', template.toString());
-    return this.http.get(`/staff/${employeeId}`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/staff/${employeeId}`, { params: httpParams });
   }
 
   /**
    * @returns {Observable<any>} Currencies data
    */
   getCurrencies(): Observable<any> {
-    return this.http.get('/currencies');
+    return this.http.get(`${environment.serverUrl}/currencies`);
   }
 
   /**
@@ -222,14 +223,14 @@ export class OrganizationService {
    * @returns {Observable<any>} Currencies data
    */
   updateCurrencies(currencies: any[]): Observable<any> {
-    return this.http.put('/currencies', { currencies });
+    return this.http.put(`${environment.serverUrl}/currencies`, { currencies });
   }
 
   /**
    * @returns {Observable<any>} SMS Campaigns data
    */
   getSmsCampaigns(): Observable<any> {
-    return this.http.get('/smscampaigns');
+    return this.http.get(`${environment.serverUrl}/smscampaigns`);
   }
 
   /**
@@ -237,7 +238,7 @@ export class OrganizationService {
    * @returns {Observable<any>} SMS Campaign.
    */
   getSmsCampaign(campaignId: string): Observable<any> {
-    return this.http.get(`/smscampaigns/${campaignId}`);
+    return this.http.get(`${environment.serverUrl}/smscampaigns/${campaignId}`);
   }
 
   /**
@@ -245,7 +246,7 @@ export class OrganizationService {
    * @returns {Observable<any>}
    */
   createSmsCampaign(campaign: any): Observable<any> {
-    return this.http.post('/smscampaigns', campaign);
+    return this.http.post(`${environment.serverUrl}/smscampaigns`, campaign);
   }
 
   /**
@@ -253,7 +254,7 @@ export class OrganizationService {
    * @returns {Observable<any>}
    */
   updateSmsCampaign(campaign: any, campaignId: string): Observable<any> {
-    return this.http.put(`/smscampaigns/${campaignId}`, campaign);
+    return this.http.put(`${environment.serverUrl}/smscampaigns/${campaignId}`, campaign);
   }
 
   /**
@@ -261,14 +262,14 @@ export class OrganizationService {
    * @returns {Observable<any>}
    */
   deleteSmsCampaign(campaignId: string): Observable<any> {
-    return this.http.delete(`/smscampaigns/${campaignId}`);
+    return this.http.delete(`${environment.serverUrl}/smscampaigns/${campaignId}`);
   }
 
   /**
    * @returns {Observable<any>} SMS Campaign template
    */
   getSmsCampaignTemplate(): Observable<any> {
-    return this.http.get('/smscampaigns/template');
+    return this.http.get(`${environment.serverUrl}/smscampaigns/template`);
   }
 
   /**
@@ -279,7 +280,7 @@ export class OrganizationService {
    */
   executeSmsCampaignCommand(campaignId: string, data: any, command: string): Observable<any> {
     const httpParams = new HttpParams().set('command', command.toString());
-    return this.http.post(`/smscampaigns/${campaignId}`, data, { params: httpParams });
+    return this.http.post(`${environment.serverUrl}/smscampaigns/${campaignId}`, data, { params: httpParams });
   }
 
   /**
@@ -293,14 +294,14 @@ export class OrganizationService {
       .set('dateFormat', SMS.dateFormat);
     httpParams = SMS.fromDate ? httpParams.set('fromDate', SMS.fromDate) : httpParams;
     httpParams = SMS.toDate ? httpParams.set('toDate', SMS.toDate) : httpParams;
-    return this.http.get(`/sms/${SMS.id}/messageByStatus`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/sms/${SMS.id}/messageByStatus`, { params: httpParams });
   }
 
   /**
    * @returns {Observable<any>} Adhoc Queries data
    */
   getAdhocQueries(): Observable<any> {
-    return this.http.get('/adhocquery');
+    return this.http.get(`${environment.serverUrl}/adhocquery`);
   }
 
   /**
@@ -308,14 +309,14 @@ export class OrganizationService {
    * @returns {Observable<any>} Adhoc query.
    */
   getAdhocQuery(adhocQueryId: string): Observable<any> {
-    return this.http.get(`/adhocquery/${adhocQueryId}`);
+    return this.http.get(`${environment.serverUrl}/adhocquery/${adhocQueryId}`);
   }
 
   /**
    * @returns {Observable<any>} Adhoc query Template data
    */
   getAdhocQueryTemplate(): Observable<any> {
-    return this.http.get(`/adhocquery/template`);
+    return this.http.get(`${environment.serverUrl}/adhocquery/template`);
   }
 
   /**
@@ -324,7 +325,7 @@ export class OrganizationService {
    */
   getAdhocQueryAndTemplate(adhocQueryId: string): Observable<any> {
     const httpParams = new HttpParams().set('template', 'true');
-    return this.http.get(`/adhocquery/${adhocQueryId}`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/adhocquery/${adhocQueryId}`, { params: httpParams });
   }
 
   /**
@@ -332,7 +333,7 @@ export class OrganizationService {
    * @returns {Observable<any>}
    */
   createAdhocQuery(adhocQuery: any): Observable<any> {
-    return this.http.post('/adhocquery', adhocQuery);
+    return this.http.post(`${environment.serverUrl}/adhocquery`, adhocQuery);
   }
 
   /**
@@ -341,7 +342,7 @@ export class OrganizationService {
    * @returns {Observable<any>}
    */
   updateAdhocQuery(queryId: any, adhocQuery: any): Observable<any> {
-    return this.http.put(`/adhocquery/${queryId}`, adhocQuery);
+    return this.http.put(`${environment.serverUrl}/adhocquery/${queryId}`, adhocQuery);
   }
 
   /**
@@ -349,14 +350,14 @@ export class OrganizationService {
    * @returns {Observable<any>}
    */
   deleteAdhocQuery(adhocQueryId: string): Observable<any> {
-    return this.http.delete(`/adhocquery/${adhocQueryId}`);
+    return this.http.delete(`${environment.serverUrl}/adhocquery/${adhocQueryId}`);
   }
 
   /**
    * @returns {Observable<any>} Tellers data
    */
   getTellers(): Observable<any> {
-    return this.http.get('/tellers');
+    return this.http.get(`${environment.serverUrl}/tellers`);
   }
 
   /**
@@ -364,7 +365,7 @@ export class OrganizationService {
    * @returns {Observable<any>} Teller.
    */
   getTeller(tellerId: string): Observable<any> {
-    return this.http.get(`/tellers/${tellerId}`);
+    return this.http.get(`${environment.serverUrl}/tellers/${tellerId}`);
   }
 
   /**
@@ -372,7 +373,7 @@ export class OrganizationService {
    * @returns {Observable<any>} Cashier data.
    */
   getCashiers(tellerId: string): Observable<any> {
-    return this.http.get(`/tellers/${tellerId}/cashiers`);
+    return this.http.get(`${environment.serverUrl}/tellers/${tellerId}/cashiers`);
   }
 
   /**
@@ -381,7 +382,7 @@ export class OrganizationService {
    * @returns {Observable<any>} Cashier data.
    */
   getCashier(tellerId: string, cashierId: string): Observable<any> {
-    return this.http.get(`/tellers/${tellerId}/cashiers/${cashierId}`);
+    return this.http.get(`${environment.serverUrl}/tellers/${tellerId}/cashiers/${cashierId}`);
   }
 
   /**
@@ -392,7 +393,7 @@ export class OrganizationService {
    */
   getCashierSummaryAndTransactions(tellerId: string, cashierId: string, currencyCode: string): Observable<any> {
     const httpParams = new HttpParams().set('currencyCode', currencyCode);
-    return this.http.get(`/tellers/${tellerId}/cashiers/${cashierId}/summaryandtransactions`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/tellers/${tellerId}/cashiers/${cashierId}/summaryandtransactions`, { params: httpParams });
   }
 
   /**
@@ -402,7 +403,7 @@ export class OrganizationService {
    * @returns {Observable<any>} Cashier Transaction data.
    */
   getCashierTransactionTemplate(tellerId: string, cashierId: string): Observable<any> {
-    return this.http.get(`/tellers/${tellerId}/cashiers/${cashierId}/transactions/template`);
+    return this.http.get(`${environment.serverUrl}/tellers/${tellerId}/cashiers/${cashierId}/transactions/template`);
   }
 
   /**
@@ -411,7 +412,7 @@ export class OrganizationService {
    * @returns {Observable<any>}
    */
   createCashier(tellerId: string, cashier: any): Observable<any> {
-    return this.http.post(`/tellers/${tellerId}/cashiers`, cashier);
+    return this.http.post(`${environment.serverUrl}/tellers/${tellerId}/cashiers`, cashier);
   }
 
   /**
@@ -420,7 +421,7 @@ export class OrganizationService {
    * @returns {Observable<any>}
    */
   deleteCashier(tellerId: string, cashierId: string): Observable<any> {
-    return this.http.delete(`/tellers/${tellerId}/cashiers/${cashierId}`);
+    return this.http.delete(`${environment.serverUrl}/tellers/${tellerId}/cashiers/${cashierId}`);
   }
 
   /**
@@ -431,7 +432,7 @@ export class OrganizationService {
    */
   settleCash(tellerId: string, cashierId: string, cashData: any): Observable<any> {
     const httpParams = new HttpParams().set('command', 'settle');
-    return this.http.post(`/tellers/${tellerId}/cashiers/${cashierId}/settle`, cashData, { params: httpParams });
+    return this.http.post(`${environment.serverUrl}/tellers/${tellerId}/cashiers/${cashierId}/settle`, cashData, { params: httpParams });
   }
 
   /**
@@ -442,7 +443,7 @@ export class OrganizationService {
    */
   allocateCash(tellerId: string, cashierId: string, cashData: any): Observable<any> {
     const httpParams = new HttpParams().set('command', 'allocate');
-    return this.http.post(`/tellers/${tellerId}/cashiers/${cashierId}/allocate`, cashData, { params: httpParams });
+    return this.http.post(`${environment.serverUrl}/tellers/${tellerId}/cashiers/${cashierId}/allocate`, cashData, { params: httpParams });
   }
 
   /** Get Cashier Template.
@@ -450,7 +451,7 @@ export class OrganizationService {
    * @returns {Observable<any>} Cashier template.
    */
   getCashierTemplate(tellerId: string): Observable<any> {
-    return this.http.get(`/tellers/${tellerId}/cashiers/template`);
+    return this.http.get(`${environment.serverUrl}/tellers/${tellerId}/cashiers/template`);
   }
 
   /**
@@ -461,7 +462,7 @@ export class OrganizationService {
    * @returns {Observable<any>}
    */
   updateCashier(tellerId: string, cashierId: string, cashierData: any): Observable<any> {
-    return this.http.put(`/tellers/${tellerId}/cashiers/${cashierId}`, cashierData);
+    return this.http.put(`${environment.serverUrl}/tellers/${tellerId}/cashiers/${cashierId}`, cashierData);
   }
 
   /**
@@ -469,7 +470,7 @@ export class OrganizationService {
    * @returns {Observable<any>}
    */
   deleteTeller(tellerId: string): Observable<any> {
-    return this.http.delete(`/tellers/${tellerId}`);
+    return this.http.delete(`${environment.serverUrl}/tellers/${tellerId}`);
   }
 
   /**
@@ -477,21 +478,21 @@ export class OrganizationService {
    * @returns {Observable<any>}
    */
   createTeller(teller: any): Observable<any> {
-    return this.http.post('/tellers', teller);
+    return this.http.post(`${environment.serverUrl}/tellers`, teller);
   }
 
   /**
    * @returns {Observable<any>} Payment Types data
    */
   getPaymentTypes(): Observable<any> {
-    return this.http.get('/paymenttypes');
+    return this.http.get(`${environment.serverUrl}/paymenttypes`);
   }
 
   /**
    * @returns {Observable<any>} Payment Types data
    */
    getPaymentTypesWithCode(): Observable<any> {
-    return this.http.get('/paymenttypes?onlyWithCode=true');
+    return this.http.get(`${environment.serverUrl}/paymenttypes?onlyWithCode=true`);
   }
 
   /**
@@ -499,7 +500,7 @@ export class OrganizationService {
    * @returns {Observable<any>}
    */
   createPaymentType(paymentType: any): Observable<any> {
-    return this.http.post('/paymenttypes', paymentType);
+    return this.http.post(`${environment.serverUrl}/paymenttypes`, paymentType);
   }
 
   /**
@@ -507,7 +508,7 @@ export class OrganizationService {
    * @returns {Observable<any>}
    */
   deletePaymentType(paymentTypeId: string): Observable<any> {
-    return this.http.delete(`/paymenttypes/${paymentTypeId}`);
+    return this.http.delete(`${environment.serverUrl}/paymenttypes/${paymentTypeId}`);
   }
 
   /**
@@ -515,7 +516,7 @@ export class OrganizationService {
    * @returns {Observable<any>} Payment type.
    */
   getPaymentType(paymentTypeId: string): Observable<any> {
-    return this.http.get(`/paymenttypes/${paymentTypeId}`);
+    return this.http.get(`${environment.serverUrl}/paymenttypes/${paymentTypeId}`);
   }
 
   /**
@@ -523,14 +524,14 @@ export class OrganizationService {
    * @returns {Observable<any>}
    */
   updatePaymentType(paymentTypeId: string, paymentType: any): Observable<any> {
-    return this.http.put(`/paymenttypes/${paymentTypeId}`, paymentType);
+    return this.http.put(`${environment.serverUrl}/paymenttypes/${paymentTypeId}`, paymentType);
   }
 
   /**
    * @returns {Observable<any>} Password Preferences Template data
    */
   getPasswordPreferencesTemplate(): Observable<any> {
-    return this.http.get('/passwordpreferences/template');
+    return this.http.get(`${environment.serverUrl}/passwordpreferences/template`);
   }
 
   /**
@@ -538,7 +539,7 @@ export class OrganizationService {
    * @returns {Observable<any>}
    */
   updatePasswordPreferences(passwordPreferences: any): Observable<any> {
-    return this.http.put('/passwordpreferences', passwordPreferences);
+    return this.http.put(`${environment.serverUrl}/passwordpreferences`, passwordPreferences);
   }
 
   /**
@@ -550,14 +551,14 @@ export class OrganizationService {
     const httpParams = new HttpParams()
       .set('offset', offset.toString())
       .set('limit', limit.toString());
-    return this.http.get('/entityDatatableChecks', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/entityDatatableChecks`, { params: httpParams });
   }
 
   /**
    * Get Entity Data Table Checks Template.
    */
   getEntityDataTableChecksTemplate(): Observable<any> {
-    return this.http.get('/entityDatatableChecks/template');
+    return this.http.get(`${environment.serverUrl}/entityDatatableChecks/template`);
   }
 
   /**
@@ -565,7 +566,7 @@ export class OrganizationService {
    * @param entityData Data to be passed.
    */
   createEntityDataTableChecks(entityData: any): Observable<any> {
-    return this.http.post('/entityDatatableChecks', entityData);
+    return this.http.post(`${environment.serverUrl}/entityDatatableChecks`, entityData);
   }
 
   /**
@@ -573,14 +574,14 @@ export class OrganizationService {
    * @returns {Observable<any>}
    */
   deleteEntityDataTableCheck(entityDataTableCheckId: string): Observable<any> {
-    return this.http.delete(`/entityDatatableChecks/${entityDataTableCheckId}`);
+    return this.http.delete(`${environment.serverUrl}/entityDatatableChecks/${entityDataTableCheckId}`);
   }
 
   /**
    * @returns {Observable<any>} Working days data.
    */
   getWorkingDays(): Observable<any> {
-    return this.http.get('/workingdays');
+    return this.http.get(`${environment.serverUrl}/workingdays`);
   }
 
   /**
@@ -588,7 +589,7 @@ export class OrganizationService {
    * @returns {Observable<any>}
    */
   updateWorkingDays(workingDays: any): Observable<any> {
-    return this.http.put('/workingdays', workingDays);
+    return this.http.put(`${environment.serverUrl}/workingdays`, workingDays);
   }
 
   /**
@@ -598,7 +599,7 @@ export class OrganizationService {
   getHolidays(officeId: string): Observable<any> {
     const httpParams = new HttpParams()
       .set('officeId', officeId.toString());
-    return this.http.get('/holidays', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/holidays`, { params: httpParams });
   }
 
   /**
@@ -607,7 +608,7 @@ export class OrganizationService {
    * @returns {Observable<any>} Holiday data.
    */
   getHoliday(holidayId: string): Observable<any> {
-    return this.http.get(`/holidays/${holidayId}`);
+    return this.http.get(`${environment.serverUrl}/holidays/${holidayId}`);
   }
 
   /**
@@ -615,7 +616,7 @@ export class OrganizationService {
    * @returns {Observable<any>} Holiday data.
    */
   getHolidayTemplate(): Observable<any> {
-    return this.http.get('/holidays/template');
+    return this.http.get(`${environment.serverUrl}/holidays/template`);
   }
 
   /**
@@ -624,7 +625,7 @@ export class OrganizationService {
    * @returns {Observable<any>}
    */
   createHoliday(holidayData: any): Observable<any> {
-    return this.http.post('/holidays', holidayData);
+    return this.http.post(`${environment.serverUrl}/holidays`, holidayData);
   }
 
   /**
@@ -634,7 +635,7 @@ export class OrganizationService {
    * @returns {Observable<any>}
    */
   updateHoliday(holidayId: any, holidayData: any): Observable<any> {
-    return this.http.put(`/holidays/${holidayId}`, holidayData);
+    return this.http.put(`${environment.serverUrl}/holidays/${holidayId}`, holidayData);
   }
 
   /**
@@ -643,7 +644,7 @@ export class OrganizationService {
    * @returns {Observable<any>} Resource Id.
    */
   deleteHoliday(holidayId: string): Observable<any> {
-    return this.http.delete(`/holidays/${holidayId}`);
+    return this.http.delete(`${environment.serverUrl}/holidays/${holidayId}`);
   }
 
   /**
@@ -654,7 +655,7 @@ export class OrganizationService {
   activateHoliday(holidayId: string): Observable<any> {
     const httpParams = new HttpParams()
       .set('command', 'activate');
-    return this.http.post(`/holidays/${holidayId}`, null, { params: httpParams });
+    return this.http.post(`${environment.serverUrl}/holidays/${holidayId}`, null, { params: httpParams });
   }
 
   /**
@@ -662,7 +663,7 @@ export class OrganizationService {
    * @returns {Observable<any>}
    */
   updateEmployee(employeeId: string, employee: any): Observable<any> {
-    return this.http.put(`/staff/${employeeId}`, employee);
+    return this.http.put(`${environment.serverUrl}/staff/${employeeId}`, employee);
   }
 
   /**
@@ -670,21 +671,21 @@ export class OrganizationService {
    * @returns {Observable<any>}
    */
   updateTeller(tellerId: string, teller: any): Observable<any> {
-    return this.http.put(`/tellers/${tellerId}`, teller);
+    return this.http.put(`${environment.serverUrl}/tellers/${tellerId}`, teller);
   }
 
   /**
    * @returns {Observable<any>} Funds data
    */
   getFunds(): Observable<any> {
-    return this.http.get('/funds');
+    return this.http.get(`${environment.serverUrl}/funds`);
   }
 
   /**
    * @returns {Observable<any>} Fund data
    */
   getFund(fundId: string): Observable<any> {
-    return this.http.get(`/funds/${fundId}`);
+    return this.http.get(`${environment.serverUrl}/funds/${fundId}`);
   }
 
   /**
@@ -692,7 +693,7 @@ export class OrganizationService {
    * @returns {Observable<any>}
    */
   createFund(fund: any): Observable<any> {
-    return this.http.post('/funds', fund);
+    return this.http.post(`${environment.serverUrl}/funds`, fund);
   }
 
   /**
@@ -701,7 +702,7 @@ export class OrganizationService {
    * @returns {Observable<any>}
    */
   editFund(fundId: string, fundData: any): Observable<any> {
-    return this.http.put(`/funds/${fundId}`, fundData);
+    return this.http.put(`${environment.serverUrl}/funds/${fundId}`, fundData);
   }
 
   /*
@@ -711,7 +712,7 @@ export class OrganizationService {
   getStaff(officeId: any): Observable<any> {
     const httpParams = new HttpParams()
       .set('officeId', officeId.toString());
-    return this.http.get('/staff', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/staff`, { params: httpParams });
   }
 
   /**
@@ -720,28 +721,28 @@ export class OrganizationService {
    */
   getImports(entity: string): Observable<any> {
     const httpParams = new HttpParams().set('entityType', entity);
-    return this.http.get('/imports', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/imports`, { params: httpParams });
   }
 
   /**
    * @returns {Observable<any>}
    */
   getAdvanceSearchTemplate(): Observable<any> {
-    return this.http.get('/search/template');
+    return this.http.get(`${environment.serverUrl}/search/template`);
   }
 
   /**
    * @returns {Observable<any>}
    */
   retrieveAdvanceSearchResults(queryObject: any): Observable<any> {
-    return this.http.post('/search/advance', queryObject);
+    return this.http.post(`${environment.serverUrl}/search/advance`, queryObject);
   }
 
   /**
    * @returns {Observable<any>}
    */
   getStandingInstructionTemplate(): Observable<any> {
-    return this.http.get('/standinginstructions/template');
+    return this.http.get(`${environment.serverUrl}/standinginstructions/template`);
   }
 
   /**
@@ -755,7 +756,7 @@ export class OrganizationService {
         httpParams = httpParams.set(key, instruction[key]);
       }
     }
-    return this.http.get(`/standinginstructionrunhistory`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/standinginstructionrunhistory`, { params: httpParams });
   }
 
   /**
@@ -790,7 +791,7 @@ export class OrganizationService {
     const httpParams = new HttpParams()
       .set('importDocumentId', id)
       .set('tenantIdentifier', 'default');
-    return this.http.get('/imports/downloadOutputTemplate', { params: httpParams, responseType: 'arraybuffer', observe: 'response' });
+    return this.http.get(`${environment.serverUrl}/imports/downloadOutputTemplate`, { params: httpParams, responseType: 'arraybuffer', observe: 'response' });
   }
 
   /**

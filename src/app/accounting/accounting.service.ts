@@ -6,6 +6,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';
+import { environment } from 'environments/environment';
 
 /**
  * Accounting service.
@@ -25,7 +26,7 @@ export class AccountingService {
    */
   getOffices(): Observable<any> {
     const httpParams = new HttpParams().set('orderBy', 'id');
-    return  this.http.get('/offices', { params: httpParams });
+    return  this.http.get(`${environment.serverUrl}/offices`, { params: httpParams });
   }
 
   /**
@@ -37,21 +38,21 @@ export class AccountingService {
     if (useHttpParams) {
       httpParams = httpParams.set('associations', 'all');
     }
-    return this.http.get('/accountingrules', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/accountingrules`, { params: httpParams });
   }
 
   /**
    * @returns {Observable<any>} Currencies data.
    */
   getCurrencies(): Observable<any> {
-    return this.http.get('/currencies');
+    return this.http.get(`${environment.serverUrl}/currencies`);
   }
 
   /**
    * @returns {Observable<any>} Payment types data.
    */
   getPaymentTypes(): Observable<any> {
-    return this.http.get('/paymenttypes');
+    return this.http.get(`${environment.serverUrl}/paymenttypes`);
   }
 
   /**
@@ -59,7 +60,7 @@ export class AccountingService {
    * @returns {Observable<any>}
    */
   createJournalEntry(journalEntry: any): Observable<any> {
-    return this.http.post('/journalentries', journalEntry);
+    return this.http.post(`${environment.serverUrl}/journalentries`, journalEntry);
   }
 
   /**
@@ -70,7 +71,7 @@ export class AccountingService {
       .set('manualEntriesAllowed', 'true')
       .set('usage', '1')
       .set('disabled', 'false');
-    return this.http.get(`/glaccounts`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/glaccounts`, { params: httpParams });
   }
 
   /**
@@ -81,7 +82,7 @@ export class AccountingService {
     const httpParams = new HttpParams()
       .set('transactionId', transactionId)
       .set('transactionDetails', 'true');
-    return this.http.get(`/journalentries`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/journalentries`, { params: httpParams });
   }
 
   /**
@@ -104,7 +105,7 @@ export class AccountingService {
         httpParams = httpParams.set(filter.type, filter.value);
       }
     });
-    return this.http.get('/journalentries', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/journalentries`, { params: httpParams });
   }
 
   /**
@@ -118,21 +119,21 @@ export class AccountingService {
     if (comments) {
       data = { comments: comments };
     }
-    return this.http.post(`/journalentries/${transactionId}`, data, { params: httpParams });
+    return this.http.post(`${environment.serverUrl}/journalentries/${transactionId}`, data, { params: httpParams });
   }
 
   /**
    * @returns {Observable<any>} Financial activity accounts.
    */
   getFinancialActivityAccounts(): Observable<any> {
-    return this.http.get('/financialactivityaccounts');
+    return this.http.get(`${environment.serverUrl}/financialactivityaccounts`);
   }
 
   /**
    * @returns {Observable<any>} Financial activity accounts template.
    */
   getFinancialActivityAccountsTemplate(): Observable<any> {
-    return this.http.get('/financialactivityaccounts/template');
+    return this.http.get(`${environment.serverUrl}/financialactivityaccounts/template`);
   }
 
   /**
@@ -140,7 +141,7 @@ export class AccountingService {
    * @returns {Observable<any>}
    */
   createFinancialActivityAccount(financialActivityAccount: any): Observable<any> {
-    return this.http.post('/financialactivityaccounts', financialActivityAccount);
+    return this.http.post(`${environment.serverUrl}/financialactivityaccounts`, financialActivityAccount);
   }
 
   /**
@@ -150,7 +151,7 @@ export class AccountingService {
    */
   getFinancialActivityAccount(financialActivityAccountId: string, template: boolean = false): Observable<any> {
     const httpParams = new HttpParams().set('template', template.toString());
-    return this.http.get(`/financialactivityaccounts/${financialActivityAccountId}`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/financialactivityaccounts/${financialActivityAccountId}`, { params: httpParams });
   }
 
   /**
@@ -159,7 +160,7 @@ export class AccountingService {
    * @returns {Observable<any>}
    */
   updateFinancialActivityAccount(financialActivityAccountId: string, financialActivityAccount: any): Observable<any> {
-    return this.http.put(`/financialactivityaccounts/${financialActivityAccountId}`, financialActivityAccount);
+    return this.http.put(`${environment.serverUrl}/financialactivityaccounts/${financialActivityAccountId}`, financialActivityAccount);
   }
 
   /**
@@ -167,7 +168,7 @@ export class AccountingService {
    * @returns {Observable<any>}
    */
   deleteFinancialActivityAccount(financialActivityAccountId: string): Observable<any> {
-    return this.http.delete(`/financialactivityaccounts/${financialActivityAccountId}`);
+    return this.http.delete(`${environment.serverUrl}/financialactivityaccounts/${financialActivityAccountId}`);
   }
 
   /**
@@ -176,7 +177,7 @@ export class AccountingService {
    */
   retrieveOpeningBalances(officeId: string): Observable<any> {
     const httpParams = new HttpParams().set('officeId', officeId);
-    return this.http.get('/journalentries/openingbalance', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/journalentries/openingbalance`, { params: httpParams });
   }
 
   /**
@@ -185,21 +186,21 @@ export class AccountingService {
    */
   defineOpeningBalances(openingBalances: any): Observable<any> {
     const httpParams = new HttpParams().set('command', 'defineOpeningBalance');
-    return this.http.post(`/journalentries`, openingBalances, { params: httpParams });
+    return this.http.post(`${environment.serverUrl}/journalentries`, openingBalances, { params: httpParams });
   }
 
   /**
    * @returns {Observable<any>} GL accounts.
    */
   getChartOfAccounts(): Observable<any> {
-    return this.http.get('/glaccounts');
+    return this.http.get(`${environment.serverUrl}/glaccounts`);
   }
 
   /**
    * @returns {Observable<any>} GL accounts template.
    */
   getChartOfAccountsTemplate(): Observable<any> {
-    return this.http.get('/glaccounts/template');
+    return this.http.get(`${environment.serverUrl}/glaccounts/template`);
   }
 
   /**
@@ -207,7 +208,7 @@ export class AccountingService {
    * @returns {Observable<any>}
    */
   createGlAccount(glAccount: any): Observable<any> {
-    return this.http.post('/glaccounts', glAccount);
+    return this.http.post(`${environment.serverUrl}/glaccounts`, glAccount);
   }
 
   /**
@@ -217,7 +218,7 @@ export class AccountingService {
    */
   getGlAccount(glAccountId: string, template: boolean = false): Observable<any> {
     const httpParams = new HttpParams().set('template', template.toString());
-    return this.http.get(`/glaccounts/${glAccountId}`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/glaccounts/${glAccountId}`, { params: httpParams });
   }
 
   /**
@@ -226,7 +227,7 @@ export class AccountingService {
    * @returns {Observable<any>}
    */
   updateGlAccount(glAccountId: string, glAccount: any): Observable<any> {
-    return this.http.put(`/glaccounts/${glAccountId}`, glAccount);
+    return this.http.put(`${environment.serverUrl}/glaccounts/${glAccountId}`, glAccount);
   }
 
   /**
@@ -234,14 +235,14 @@ export class AccountingService {
    * @returns {Observable<any>}
    */
   deleteGlAccount(glAccountId: string): Observable<any> {
-    return this.http.delete(`/glaccounts/${glAccountId}`);
+    return this.http.delete(`${environment.serverUrl}/glaccounts/${glAccountId}`);
   }
 
   /**
    * @returns {Observable<any>} GL account closures.
    */
   getAccountingClosures(): Observable<any> {
-    return this.http.get('/glclosures');
+    return this.http.get(`${environment.serverUrl}/glclosures`);
   }
 
   /**
@@ -249,7 +250,7 @@ export class AccountingService {
    * @returns {Observable<any>}
    */
   createAccountingClosure(accountingClosure: any): Observable<any> {
-    return this.http.post('/glclosures', accountingClosure);
+    return this.http.post(`${environment.serverUrl}/glclosures`, accountingClosure);
   }
 
   /**
@@ -257,7 +258,7 @@ export class AccountingService {
    * @returns {Observable<any>} Accounting closure.
    */
   getAccountingClosure(accountingClosureId: string): Observable<any> {
-    return this.http.get(`/glclosures/${accountingClosureId}`);
+    return this.http.get(`${environment.serverUrl}/glclosures/${accountingClosureId}`);
   }
 
   /**
@@ -266,7 +267,7 @@ export class AccountingService {
    * @returns {Observable<any>}
    */
   updateAccountingClosure(accountingClosureId: string, accountingClosure: any): Observable<any> {
-    return this.http.put(`/glclosures/${accountingClosureId}`, accountingClosure);
+    return this.http.put(`${environment.serverUrl}/glclosures/${accountingClosureId}`, accountingClosure);
   }
 
   /**
@@ -274,14 +275,14 @@ export class AccountingService {
    * @returns {Observable<any>}
    */
   deleteAccountingClosure(accountingClosureId: string): Observable<any> {
-    return this.http.delete(`/glclosures/${accountingClosureId}`);
+    return this.http.delete(`${environment.serverUrl}/glclosures/${accountingClosureId}`);
   }
 
   /**
    * @returns {Observable<any>} Accounting rules template.
    */
   getAccountingRulesTemplate(): Observable<any> {
-    return this.http.get('/accountingrules/template');
+    return this.http.get(`${environment.serverUrl}/accountingrules/template`);
   }
 
   /**
@@ -289,7 +290,7 @@ export class AccountingService {
    * @returns {Observable<any>}
    */
   createAccountingRule(accountingRule: any): Observable<any> {
-    return this.http.post('/accountingrules', accountingRule);
+    return this.http.post(`${environment.serverUrl}/accountingrules`, accountingRule);
   }
 
   /**
@@ -297,7 +298,7 @@ export class AccountingService {
    * @returns {Observable<any>} Accounting rule.
    */
   getAccountingRule(accountingRuleId: string): Observable<any> {
-    return this.http.get(`/accountingrules/${accountingRuleId}`);
+    return this.http.get(`${environment.serverUrl}/accountingrules/${accountingRuleId}`);
   }
 
   /**
@@ -306,7 +307,7 @@ export class AccountingService {
    * @returns {Observable<any>}
    */
   updateAccountingRule(accoutingRuleId: string, accountingRule: any): Observable<any> {
-    return this.http.put(`/accountingrules/${accoutingRuleId}`, accountingRule);
+    return this.http.put(`${environment.serverUrl}/accountingrules/${accoutingRuleId}`, accountingRule);
   }
 
   /**
@@ -314,7 +315,7 @@ export class AccountingService {
    * @returns {Observable<any>}
    */
   deleteAccountingRule(accountingRuleId: string): Observable<any> {
-    return this.http.delete(`/accountingrules/${accountingRuleId}`);
+    return this.http.delete(`${environment.serverUrl}/accountingrules/${accountingRuleId}`);
   }
 
   /**
@@ -322,14 +323,14 @@ export class AccountingService {
    * @returns {Observable<any>}
    */
   executePeriodicAccruals(periodicAccruals: any): Observable<any> {
-    return this.http.post('/runaccruals', periodicAccruals);
+    return this.http.post(`${environment.serverUrl}/runaccruals`, periodicAccruals);
   }
 
   /**
    * @returns {Observable<any>} Provisioning entries.
    */
   getProvisioningEntries(): Observable<any> {
-    return this.http.get('/provisioningentries');
+    return this.http.get(`${environment.serverUrl}/provisioningentries`);
   }
 
   /**
@@ -337,7 +338,7 @@ export class AccountingService {
    * @returns {Observable<any>}
    */
   createProvisioningEntry(provisioningEntry: any): Observable<any> {
-    return this.http.post('/provisioningentries', provisioningEntry);
+    return this.http.post(`${environment.serverUrl}/provisioningentries`, provisioningEntry);
   }
 
   /**
@@ -345,21 +346,21 @@ export class AccountingService {
    * @returns {Observable<any>} Provisioning entry.
    */
   getProvisioningEntry(provisioningEntryId: string): Observable<any> {
-    return this.http.get(`/provisioningentries/${provisioningEntryId}`);
+    return this.http.get(`${environment.serverUrl}/provisioningentries/${provisioningEntryId}`);
   }
 
   /**
    * @returns {Observable<any>} Loan products data.
    */
   getLoanProducts(): Observable<any> {
-    return this.http.get('/loanproducts');
+    return this.http.get(`${environment.serverUrl}/loanproducts`);
   }
 
   /**
    * @returns {Observable<any>} Provisioning categories data.
    */
   getProvisioningCategories(): Observable<any> {
-    return this.http.get('/provisioningcategory');
+    return this.http.get(`${environment.serverUrl}/provisioningcategory`);
   }
 
   /**
@@ -368,7 +369,7 @@ export class AccountingService {
    */
   getProvisioningEntryEntries(provisioningEntryId: string): Observable<any> {
     const httpParams = new HttpParams().set('entryId', provisioningEntryId);
-    return this.http.get('/provisioningentries/entries', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/provisioningentries/entries`, { params: httpParams });
   }
 
   /**
@@ -377,7 +378,7 @@ export class AccountingService {
    */
   getProvisioningJournalEntries(provisioningEntryId: string): Observable<any> {
     const httpParams = new HttpParams().set('entryId', provisioningEntryId);
-    return this.http.get('/journalentries/provisioning', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/journalentries/provisioning`, { params: httpParams });
   }
 
   /**
@@ -386,7 +387,7 @@ export class AccountingService {
    */
   createProvisioningJournalEntries(provisioningEntryId: string): Observable<any> {
     const httpParams = new HttpParams().set('command', 'createjournalentry');
-    return this.http.post(`/provisioningentries/${provisioningEntryId}`, {}, { params: httpParams });
+    return this.http.post(`${environment.serverUrl}/provisioningentries/${provisioningEntryId}`, {}, { params: httpParams });
   }
 
   /**
@@ -395,7 +396,7 @@ export class AccountingService {
    */
   recreateProvisioningEntries(provisioningEntryId: string): Observable<any> {
     const httpParams = new HttpParams().set('command', 'recreateprovisioningentry');
-    return this.http.post(`/provisioningentries/${provisioningEntryId}`, {}, { params: httpParams });
+    return this.http.post(`${environment.serverUrl}/provisioningentries/${provisioningEntryId}`, {}, { params: httpParams });
   }
 
 }

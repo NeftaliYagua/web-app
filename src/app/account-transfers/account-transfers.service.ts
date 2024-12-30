@@ -20,17 +20,17 @@ export class AccountTransfersService {
    * Returns the details of a particular Standing Instruction
    */
   getStandingInstructionsData(standingInstructionsId: any): Observable<any> {
-    return this.http.get(`/standinginstructions/${standingInstructionsId}`);
+    return this.http.get(`${environment.serverUrl}/standinginstructions/${standingInstructionsId}`);
   }
 
   getStandingInstructionsDataAndTemplate(standingInstructionsId: any): Observable<any> {
     const httpParams = new HttpParams().set('associations', 'template');
-    return this.http.get(`/standinginstructions/${standingInstructionsId}`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/standinginstructions/${standingInstructionsId}`, { params: httpParams });
   }
 
   updateStandingInstructionsData(standinginstructionsId: any, data: any): Observable<any> {
     const httpParams = new HttpParams().set('command', 'update');
-    return this.http.put(`/standinginstructions/${standinginstructionsId}`, data, { params: httpParams });
+    return this.http.put(`${environment.serverUrl}/standinginstructions/${standinginstructionsId}`, data, { params: httpParams });
   }
 
   getStandingInstructionsTemplate(clientId: any, officeId: any, accountTypeId: string, formValue?: any): Observable<any> {
@@ -44,11 +44,11 @@ export class AccountTransfersService {
         httpParams = httpParams.set(propName, formValue[propName]);
       }
     }
-    return this.http.get(`/standinginstructions/template`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/standinginstructions/template`, { params: httpParams });
   }
 
   createStandingInstructions(data: Object): Observable<any> {
-    return this.http.post(`/standinginstructions`, data);
+    return this.http.post(`${environment.serverUrl}/standinginstructions`, data);
   }
 
   newAccountTranferResource(id: any, accountTypeId: any, formValue?: any): Observable<any> {
@@ -61,12 +61,12 @@ export class AccountTransfersService {
         httpParams = httpParams.set(propName, formValue[propName]);
       }
     }
-    return this.http.get(`/accounttransfers/template`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/accounttransfers/template`, { params: httpParams });
 
   }
 
   createAccountTransfer(data: any): Observable<any> {
-    return this.http.post(`/accounttransfers`, data);
+    return this.http.post(`${environment.serverUrl}/accounttransfers`, data);
   }
 
   /**
@@ -86,12 +86,12 @@ export class AccountTransfersService {
         httpParams = httpParams.set(propName, searchData[propName]);
       }
     }
-    return this.http.get(`/standinginstructions`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/standinginstructions`, { params: httpParams });
   }
 
   deleteStandingInstrucions(id: any) {
     const httpParams = new HttpParams().set('command', 'delete');
-    return this.http.delete(`/standinginstructions/${id}`, { params: httpParams });
+    return this.http.delete(`${environment.serverUrl}/standinginstructions/${id}`, { params: httpParams });
   }
 
 
@@ -101,11 +101,11 @@ export class AccountTransfersService {
                                         .set('limit', '14')
                                         .set('locale', locale)
                                         .set('offset', '0');
-    return this.http.get(`/standinginstructions/${standingInstructionsId}`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/standinginstructions/${standingInstructionsId}`, { params: httpParams });
   }
 
   getViewAccountTransferDetails(transferId: any): Observable<any> {
-    return this.http.get(`/accounttransfers/${transferId}`);
+    return this.http.get(`${environment.serverUrl}/accounttransfers/${transferId}`);
   }
 
 }

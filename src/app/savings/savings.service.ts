@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';
+import { environment } from 'environments/environment';
 
 /**
  * Savings Service.
@@ -20,7 +21,7 @@ export class SavingsService {
    * @returns {Observable<any>}
    */
   getSavingsTransactionTemplateResource(savingAccountId: string): Observable<any> {
-    return this.http.get(`/savingsaccounts/${savingAccountId}/transactions/template`);
+    return this.http.get(`${environment.serverUrl}/savingsaccounts/${savingAccountId}/transactions/template`);
   }
 
   /**
@@ -28,7 +29,7 @@ export class SavingsService {
    * @returns {Observable<any>}
    */
   getSavingsChargeTemplateResource(savingAccountId: string): Observable<any> {
-    return this.http.get(`/savingsaccounts/${savingAccountId}/charges/template`);
+    return this.http.get(`${environment.serverUrl}/savingsaccounts/${savingAccountId}/charges/template`);
   }
 
   /**
@@ -36,7 +37,7 @@ export class SavingsService {
    * @returns {Observable<any>}
    */
   createSavingsCharge(savingAccountId: string, resourceType: string, savingsCharge: any): Observable<any> {
-    return this.http.post(`/savingsaccounts/${savingAccountId}/${resourceType}`, savingsCharge);
+    return this.http.post(`${environment.serverUrl}/savingsaccounts/${savingAccountId}/${resourceType}`, savingsCharge);
   }
 
   /**
@@ -45,7 +46,7 @@ export class SavingsService {
    */
   getChargeTemplate(chargeId: string): Observable<any> {
     const params = { template: 'true' };
-    return this.http.get(`/charges/${chargeId}`, { params: params });
+    return this.http.get(`${environment.serverUrl}/charges/${chargeId}`, { params: params });
   }
 
   /**
@@ -54,7 +55,7 @@ export class SavingsService {
    */
   getSavingsAccountData(accountId: string): Observable<any> {
     const httpParams = new HttpParams().set('associations', 'all' );
-    return this.http.get(`/savingsaccounts/${accountId}`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/savingsaccounts/${accountId}`, { params: httpParams });
   }
 
   /**
@@ -65,7 +66,7 @@ export class SavingsService {
     const httpParams = new HttpParams()
       .set('template', template.toString())
       .set('associations', 'charges' );
-    return this.http.get(`/savingsaccounts/${accountId}`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/savingsaccounts/${accountId}`, { params: httpParams });
   }
 
   /**
@@ -86,7 +87,7 @@ export class SavingsService {
       .set('fromAccountType', '2')
       .set('locale', locale)
       .set('dateFormat', dateFormat);
-    return this.http.get(`/standinginstructions`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/standinginstructions`, { params: httpParams });
   }
 
   /**
@@ -94,7 +95,7 @@ export class SavingsService {
    */
   getSavingsDatatables(): Observable<any> {
     const httpParams = new HttpParams().set('apptable', 'm_savings_account');
-    return this.http.get(`/datatables`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/datatables`, { params: httpParams });
   }
 
   /**
@@ -104,7 +105,7 @@ export class SavingsService {
    */
   getSavingsDatatable(accountId: string, datatableName: string): Observable<any> {
     const httpParams = new HttpParams().set('genericResultSet', 'true');
-    return this.http.get(`/datatables/${datatableName}/${accountId}`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/datatables/${datatableName}/${accountId}`, { params: httpParams });
   }
 
   /**
@@ -112,7 +113,7 @@ export class SavingsService {
    */
   getSavingsTransactionDatatables(): Observable<any> {
     const httpParams = new HttpParams().set('apptable', 'm_savings_account_transaction');
-    return this.http.get(`/datatables`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/datatables`, { params: httpParams });
   }
 
   /**
@@ -122,7 +123,7 @@ export class SavingsService {
    */
   getSavingsTransactionDatatable(transactionId: string, datatableName: string): Observable<any> {
     const httpParams = new HttpParams().set('genericResultSet', 'true');
-    return this.http.get(`/datatables/${datatableName}/${transactionId}`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/datatables/${datatableName}/${transactionId}`, { params: httpParams });
   }
 
   /**
@@ -133,7 +134,7 @@ export class SavingsService {
    */
   addSavingsDatatableEntry(accountId: string, datatableName: string, data: any): Observable<any> {
     const httpParams = new HttpParams().set('genericResultSet', 'true');
-    return this.http.post(`/datatables/${datatableName}/${accountId}`, data, { params: httpParams });
+    return this.http.post(`${environment.serverUrl}/datatables/${datatableName}/${accountId}`, data, { params: httpParams });
   }
 
   /**
@@ -144,7 +145,7 @@ export class SavingsService {
    */
   editSavingsDatatableEntry(accountId: string, datatableName: string, data: any): Observable<any> {
     const httpParams = new HttpParams().set('genericResultSet', 'true');
-    return this.http.put(`/datatables/${datatableName}/${accountId}`, data, { params: httpParams });
+    return this.http.put(`${environment.serverUrl}/datatables/${datatableName}/${accountId}`, data, { params: httpParams });
   }
 
   /**
@@ -154,7 +155,7 @@ export class SavingsService {
    */
   deleteDatatableContent(accountId: string, datatableName: string): Observable<any> {
     const httpParams = new HttpParams().set('genericResultSet', 'true');
-    return this.http.delete(`/datatables/${datatableName}/${accountId}`, { params: httpParams });
+    return this.http.delete(`${environment.serverUrl}/datatables/${datatableName}/${accountId}`, { params: httpParams });
   }
 
   /**
@@ -164,7 +165,7 @@ export class SavingsService {
   getSavingsAccountTemplate(entityId: string, productId?: string, isGroup?: boolean): Observable<any> {
     let httpParams = new HttpParams().set( isGroup ? 'groupId' : 'clientId', entityId);
     httpParams = productId ? httpParams.set('productId', productId) : httpParams;
-    return this.http.get('/savingsaccounts/template', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/savingsaccounts/template`, { params: httpParams });
   }
 
   /**
@@ -180,7 +181,7 @@ export class SavingsService {
    * @returns {Observable<any>}
    */
   updateSavingsAccount(accountId: string, savingsAccount: any): Observable<any> {
-    return this.http.put(`/savingsaccounts/${accountId}`, savingsAccount);
+    return this.http.put(`${environment.serverUrl}/savingsaccounts/${accountId}`, savingsAccount);
   }
 
   /**
@@ -188,7 +189,7 @@ export class SavingsService {
    * @returns {Observable<any>}
    */
   deleteSavingsAccount(accountId: string): Observable<any> {
-    return this.http.delete(`/savingsaccounts/${accountId}`);
+    return this.http.delete(`${environment.serverUrl}/savingsaccounts/${accountId}`);
   }
 
   /**
@@ -199,7 +200,7 @@ export class SavingsService {
    */
   executeSavingsAccountCommand(accountId: string, command: string, data: any): Observable<any> {
     const httpParams = new HttpParams().set('command', command);
-    return this.http.post(`/savingsaccounts/${accountId}`, data, { params: httpParams });
+    return this.http.post(`${environment.serverUrl}/savingsaccounts/${accountId}`, data, { params: httpParams });
   }
 
   /**
@@ -210,7 +211,7 @@ export class SavingsService {
    */
   executeSavingsAccountUpdateCommand(accountId: string, command: string, data: any): Observable<any> {
     const httpParams = new HttpParams().set('command', command);
-    return this.http.put(`/savingsaccounts/${accountId}`, data, { params: httpParams });
+    return this.http.put(`${environment.serverUrl}/savingsaccounts/${accountId}`, data, { params: httpParams });
   }
 
   /**
@@ -219,7 +220,7 @@ export class SavingsService {
    * @returns {Observable<any>}
    */
   getSavingsAccountTransaction(accountId: string, transactionId: string): Observable<any> {
-    return this.http.get(`/savingsaccounts/${accountId}/transactions/${transactionId}`);
+    return this.http.get(`${environment.serverUrl}/savingsaccounts/${accountId}/transactions/${transactionId}`);
   }
 
   /**
@@ -229,7 +230,7 @@ export class SavingsService {
    */
   getSavingsAccountTransactionTemplate(accountId: string, transactionId: string): Observable<any> {
     const httpParams = new HttpParams().set('template', 'true');
-    return this.http.get(`/savingsaccounts/${accountId}/transactions/${transactionId}`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/savingsaccounts/${accountId}/transactions/${transactionId}`, { params: httpParams });
   }
 
   /**
@@ -242,9 +243,9 @@ export class SavingsService {
   executeSavingsAccountTransactionsCommand(accountId: string, command: string, data: any, transactionId?: any): Observable<any> {
     const httpParams = new HttpParams().set('command', command);
     if (transactionId) {
-      return this.http.post(`/savingsaccounts/${accountId}/transactions/${transactionId}`, data, { params: httpParams });
+      return this.http.post(`${environment.serverUrl}/savingsaccounts/${accountId}/transactions/${transactionId}`, data, { params: httpParams });
     }
-    return this.http.post(`/savingsaccounts/${accountId}/transactions`, data, { params: httpParams });
+    return this.http.post(`${environment.serverUrl}/savingsaccounts/${accountId}/transactions`, data, { params: httpParams });
   }
 
   /**
@@ -253,7 +254,7 @@ export class SavingsService {
    * @returns {Observable<any>}
    */
   getSavingsAccountCharge(accountId: string, chargeId: string): Observable<any> {
-    return this.http.get(`/savingsaccounts/${accountId}/charges/${chargeId}`);
+    return this.http.get(`${environment.serverUrl}/savingsaccounts/${accountId}/charges/${chargeId}`);
   }
 
   /**
@@ -265,7 +266,7 @@ export class SavingsService {
    */
   executeSavingsAccountChargesCommand(accountId: string, command: string, data: any, chargeId: any): Observable<any> {
     const httpParams = new HttpParams().set('command', command);
-    return this.http.post(`/savingsaccounts/${accountId}/charges/${chargeId}`, data, { params: httpParams });
+    return this.http.post(`${environment.serverUrl}/savingsaccounts/${accountId}/charges/${chargeId}`, data, { params: httpParams });
   }
 
   /**
@@ -275,7 +276,7 @@ export class SavingsService {
    * @returns {Observable<any>}
    */
   editSavingsAccountCharge(accountId: string, data: any, chargeId: any): Observable<any> {
-    return this.http.put(`/savingsaccounts/${accountId}/charges/${chargeId}`, data);
+    return this.http.put(`${environment.serverUrl}/savingsaccounts/${accountId}/charges/${chargeId}`, data);
   }
 
   /**
@@ -284,7 +285,7 @@ export class SavingsService {
    * @returns {Observable<any>}
    */
   deleteSavingsAccountCharge(accountId: string, chargeId: any): Observable<any> {
-    return this.http.delete(`/savingsaccounts/${accountId}/charges/${chargeId}`);
+    return this.http.delete(`${environment.serverUrl}/savingsaccounts/${accountId}/charges/${chargeId}`);
   }
 
   /**
@@ -293,7 +294,7 @@ export class SavingsService {
    */
    getGSIMAccountData(savingAccountId: string, groupId: string): Observable<any> {
     const httpParams = new HttpParams().set('parentGSIMAccountNo', savingAccountId );
-    return this.http.get(`/groups/${groupId}/gsimaccounts`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/groups/${groupId}/gsimaccounts`, { params: httpParams });
   }
 
   /**
@@ -301,7 +302,7 @@ export class SavingsService {
    * @returns {Observable<any>}
    */
   createGsimAcccount(gsimData: any): Observable<any> {
-    return this.http.post(`/savingsaccounts/gsim`, gsimData);
+    return this.http.post(`${environment.serverUrl}/savingsaccounts/gsim`, gsimData);
   }
 
   /**
@@ -309,7 +310,7 @@ export class SavingsService {
    * @returns The notes for particular loan
    */
   getSavingsNotes(savingAccountId: string): Observable<any> {
-    return this.http.get(`/savings/${savingAccountId}/notes`);
+    return this.http.get(`${environment.serverUrl}/savings/${savingAccountId}/notes`);
   }
 
   /**
@@ -319,7 +320,7 @@ export class SavingsService {
    * @returns {Observable<any>}
    */
   createSavingsNote(savingAccountId: string, noteData: any): Observable<any> {
-    return this.http.post(`/savings/${savingAccountId}/notes`, noteData);
+    return this.http.post(`${environment.serverUrl}/savings/${savingAccountId}/notes`, noteData);
   }
 
   /**
@@ -329,7 +330,7 @@ export class SavingsService {
    * @param noteData Note Data
    */
   editSavingsNote(savingAccountId: string, noteId: string, noteData: any) {
-    return this.http.put(`/savings/${savingAccountId}/notes/${noteId}`, noteData);
+    return this.http.put(`${environment.serverUrl}/savings/${savingAccountId}/notes/${noteId}`, noteData);
   }
 
   /**
@@ -338,7 +339,7 @@ export class SavingsService {
    * @param noteId Note ID
    */
   deleteSavingsNote(savingAccountId: string, noteId: string) {
-    return this.http.delete(`/savings/${savingAccountId}/notes/${noteId}`);
+    return this.http.delete(`${environment.serverUrl}/savings/${savingAccountId}/notes/${noteId}`);
   }
 
   /**
@@ -346,19 +347,19 @@ export class SavingsService {
    * @returns {Observable<any>} Savings data.
    */
   getSavingsDocuments(savingAccountId: any): Observable<any> {
-    return this.http.get(`/savings/${savingAccountId}/documents`);
+    return this.http.get(`${environment.serverUrl}/savings/${savingAccountId}/documents`);
   }
 
   downloadSavingsDocument(parentEntityId: string, documentId: string) {
-    return this.http.get(`/savings/${parentEntityId}/documents/${documentId}/attachment`, { responseType: 'blob' });
+    return this.http.get(`${environment.serverUrl}/savings/${parentEntityId}/documents/${documentId}/attachment`, { responseType: 'blob' });
   }
 
   deleteSavingsDocument(savingAccountId: any, documentId: any): Observable<any> {
-    return this.http.delete(`/savings/${savingAccountId}/documents/${documentId}`);
+    return this.http.delete(`${environment.serverUrl}/savings/${savingAccountId}/documents/${documentId}`);
   }
 
   loadSavingsDocument(savingAccountId: any, data: any): Observable<any> {
-    return this.http.post(`/savings/${savingAccountId}/documents`, data);
+    return this.http.post(`${environment.serverUrl}/savings/${savingAccountId}/documents`, data);
   }
 
 }

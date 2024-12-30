@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';
+import { environment } from 'environments/environment';
 
 /**
  * Search service.
@@ -28,7 +29,7 @@ export class SearchService {
       .set('exactMatch', 'false')
       .set('query', query)
       .set('resource', resource);
-    return this.http.get('/search', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/search`, { params: httpParams });
   }
 
 }

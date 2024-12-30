@@ -19,7 +19,7 @@ export class CollectionsService {
    * Returns all the offices
    */
   getOffices(): Observable<any> {
-    return this.http.get(`/offices`);
+    return this.http.get(`${environment.serverUrl}/offices`);
   }
 
   /**
@@ -30,7 +30,7 @@ export class CollectionsService {
     const httpParams = new HttpParams()
                       .set('officeId', officeId)
                       .set('status', 'all');
-    return this.http.get(`/staff`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/staff`, { params: httpParams });
   }
 
   /**
@@ -39,7 +39,7 @@ export class CollectionsService {
    */
   retrieveCollectionSheetData(data: any): Observable<any> {
     const httpParams = new HttpParams().set('command', 'generateCollectionSheet');
-    return this.http.post(`/collectionsheet`, data, { params: httpParams });
+    return this.http.post(`${environment.serverUrl}/collectionsheet`, data, { params: httpParams });
   }
 
   /**
@@ -48,7 +48,7 @@ export class CollectionsService {
    */
   executeSaveCollectionSheet(data: any): Observable<any> {
     const httpParams = new HttpParams().set('command', 'saveCollectionSheet');
-    return this.http.post(`/collectionsheet`, data, { params: httpParams });
+    return this.http.post(`${environment.serverUrl}/collectionsheet`, data, { params: httpParams });
   }
 
 }

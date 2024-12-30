@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';
+import { environment } from 'environments/environment';
 
 /**
  * Home Service
@@ -26,7 +27,7 @@ export class HomeService {
     const httpParams = new HttpParams()
         .set('R_officeId', officeId.toString())
         .set('genericResultSet', 'false');
-    return this.http.get('/runreports/Demand Vs Collection', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/runreports/Demand Vs Collection`, { params: httpParams });
   }
 
   /**
@@ -37,7 +38,7 @@ export class HomeService {
     const httpParams = new HttpParams()
         .set('R_officeId', officeId.toString())
         .set('genericResultSet', 'false');
-    return this.http.get('/runreports/Disbursal Vs Awaitingdisbursal', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/runreports/Disbursal Vs Awaitingdisbursal`, { params: httpParams });
   }
 
   /**
@@ -48,7 +49,7 @@ export class HomeService {
     const httpParams = new HttpParams()
         .set('R_officeId', officeId.toString())
         .set('genericResultSet', 'false');
-    return this.http.get('/runreports/ClientTrendsByDay', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/runreports/ClientTrendsByDay`, { params: httpParams });
   }
 
   /**
@@ -59,7 +60,7 @@ export class HomeService {
     const httpParams = new HttpParams()
         .set('R_officeId', officeId.toString())
         .set('genericResultSet', 'false');
-    return this.http.get('/runreports/ClientTrendsByWeek', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/runreports/ClientTrendsByWeek`, { params: httpParams });
   }
 
   /**
@@ -70,7 +71,7 @@ export class HomeService {
     const httpParams = new HttpParams()
         .set('R_officeId', officeId.toString())
         .set('genericResultSet', 'false');
-    return this.http.get('/runreports/ClientTrendsByMonth', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/runreports/ClientTrendsByMonth`, { params: httpParams });
   }
 
   /**
@@ -81,7 +82,7 @@ export class HomeService {
     const httpParams = new HttpParams()
         .set('R_officeId', officeId.toString())
         .set('genericResultSet', 'false');
-    return this.http.get('/runreports/LoanTrendsByDay', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/runreports/LoanTrendsByDay`, { params: httpParams });
   }
 
   /**
@@ -92,7 +93,7 @@ export class HomeService {
     const httpParams = new HttpParams()
         .set('R_officeId', officeId.toString())
         .set('genericResultSet', 'false');
-    return this.http.get('/runreports/LoanTrendsByWeek', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/runreports/LoanTrendsByWeek`, { params: httpParams });
   }
 
   /**
@@ -103,7 +104,7 @@ export class HomeService {
     const httpParams = new HttpParams()
         .set('R_officeId', officeId.toString())
         .set('genericResultSet', 'false');
-    return this.http.get('/runreports/LoanTrendsByMonth', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/runreports/LoanTrendsByMonth`, { params: httpParams });
   }
 
 }

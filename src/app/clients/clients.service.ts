@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';
+import { environment } from 'environments/environment';
 /**
  * Clients service.
  */
@@ -25,7 +26,7 @@ export class ClientsService {
     if (officeId) {
       httpParams = httpParams.set('officeId', officeId);
     }
-    return this.http.get('/clients', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/clients`, { params: httpParams });
   }
 
   getClients(orderBy: string, sortOrder: string, offset: number, limit: number): Observable<any> {
@@ -34,77 +35,77 @@ export class ClientsService {
       .set('limit', limit.toString())
       .set('sortOrder', sortOrder)
       .set('orderBy', orderBy);
-    return this.http.get('/clients', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/clients`, { params: httpParams });
   }
 
   getClientTemplate(): Observable<any> {
-    return this.http.get('/clients/template');
+    return this.http.get(`${environment.serverUrl}/clients/template`);
   }
 
   getClientWithOfficeTemplate(officeId: number): Observable<any> {
-    return this.http.get(`/clients/template?officeId=${officeId}&staffInSelectedOfficeOnly=true`);
+    return this.http.get(`${environment.serverUrl}/clients/template?officeId=${officeId}&staffInSelectedOfficeOnly=true`);
   }
 
   getClientData(clientId: string) {
-    return this.http.get(`/clients/${clientId}`);
+    return this.http.get(`${environment.serverUrl}/clients/${clientId}`);
   }
 
   createClient(client: any) {
-    return this.http.post(`/clients`, client);
+    return this.http.post(`${environment.serverUrl}/clients`, client);
   }
 
   updateClient(clientId: string, client: any) {
-    return this.http.put(`/clients/${clientId}`, client);
+    return this.http.put(`${environment.serverUrl}/clients/${clientId}`, client);
   }
 
   deleteClient(clientId: string) {
-    return this.http.delete(`/clients/${clientId}`);
+    return this.http.delete(`${environment.serverUrl}/clients/${clientId}`);
   }
 
   getClientDataAndTemplate(clientId: string) {
     const httpParams = new HttpParams()
         .set('template', 'true')
         .set('staffInSelectedOfficeOnly', 'true');
-    return this.http.get(`/clients/${clientId}`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/clients/${clientId}`, { params: httpParams });
   }
 
   getClientDatatables() {
     const httpParams = new HttpParams().set('apptable', 'm_client');
-    return this.http.get(`/datatables`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/datatables`, { params: httpParams });
   }
 
   getClientDatatable(clientId: string, datatableName: string) {
     const httpParams = new HttpParams().set('genericResultSet', 'true');
-    return this.http.get(`/datatables/${datatableName}/${clientId}`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/datatables/${datatableName}/${clientId}`, { params: httpParams });
   }
 
   addClientDatatableEntry(clientId: string, datatableName: string, data: any) {
     const httpParams = new HttpParams().set('genericResultSet', 'true');
-    return this.http.post(`/datatables/${datatableName}/${clientId}`, data, { params: httpParams });
+    return this.http.post(`${environment.serverUrl}/datatables/${datatableName}/${clientId}`, data, { params: httpParams });
   }
 
   editClientDatatableEntry(clientId: string, datatableName: string, data: any) {
     const httpParams = new HttpParams().set('genericResultSet', 'true');
-    return this.http.put(`/datatables/${datatableName}/${clientId}`, data, { params: httpParams });
+    return this.http.put(`${environment.serverUrl}/datatables/${datatableName}/${clientId}`, data, { params: httpParams });
   }
 
   deleteDatatableContent(clientId: string, datatableName: string) {
     const httpParams = new HttpParams().set('genericResultSet', 'true');
-    return this.http.delete(`/datatables/${datatableName}/${clientId}`, { params: httpParams });
+    return this.http.delete(`${environment.serverUrl}/datatables/${datatableName}/${clientId}`, { params: httpParams });
   }
 
   getClientAccountData(clientId: string) {
-    return this.http.get(`/clients/${clientId}/accounts`);
+    return this.http.get(`${environment.serverUrl}/clients/${clientId}/accounts`);
   }
 
   getClientChargesData(clientId: string) {
     const httpParams = new HttpParams().set('pendingPayment', 'true');
-    return this.http.get(`/clients/${clientId}/charges`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/clients/${clientId}/charges`, { params: httpParams });
   }
 
   getSelectedChargeData(clientId: string, chargeId: string) {
     const httpParams = new HttpParams().set('associations', 'all');
-    return this.http.get(`/clients/${clientId}/charges/${chargeId}`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/clients/${clientId}/charges/${chargeId}`, { params: httpParams });
   }
 
   /**
@@ -112,18 +113,18 @@ export class ClientsService {
    */
   waiveClientCharge(chargeData: any) {
     const httpParams = new HttpParams().set('command', 'waive');
-    return this.http.post(`/clients/${chargeData.clientId}/charges/${chargeData.resourceType}`, chargeData, { params: httpParams });
+    return this.http.post(`${environment.serverUrl}/clients/${chargeData.clientId}/charges/${chargeData.resourceType}`, chargeData, { params: httpParams });
   }
 
   getAllClientCharges(clientId: string) {
-    return this.http.get(`/clients/${clientId}/charges`);
+    return this.http.get(`${environment.serverUrl}/clients/${clientId}/charges`);
   }
 
   /**
    * @param transactionData Transaction Data to be undone.
    */
   undoTransaction(transactionData: any) {
-    return this.http.post(`/clients/${transactionData.clientId}/transactions/${transactionData.transactionId}?command=undo`, transactionData);
+    return this.http.post(`${environment.serverUrl}/clients/${transactionData.clientId}/transactions/${transactionData.transactionId}?command=undo`, transactionData);
   }
 
   /**
@@ -131,7 +132,7 @@ export class ClientsService {
    * @param chargeId Charge Id to be deleted.
    */
   deleteCharge(clientId: string, chargeId: string) {
-    return this.http.delete(`/clients/${clientId}/charges/${chargeId}?associations=all`);
+    return this.http.delete(`${environment.serverUrl}/clients/${clientId}/charges/${chargeId}?associations=all`);
   }
 
   /*
@@ -139,7 +140,7 @@ export class ClientsService {
    * @param chargeId Charge Id of the charge to be paid.
    */
   getClientTransactionPay(clientId: string, chargeId: string) {
-    return this.http.get(`/clients/${clientId}/charges/${chargeId}`);
+    return this.http.get(`${environment.serverUrl}/clients/${clientId}/charges/${chargeId}`);
   }
 
   /**
@@ -149,13 +150,13 @@ export class ClientsService {
    */
   payClientCharge(clientId: string, chargeId: string, payment: any) {
     const httpParams = new HttpParams().set('command', 'paycharge');
-    return this.http.post(`/clients/${clientId}/charges/${chargeId}?command=paycharge`, payment, { params: httpParams });
+    return this.http.post(`${environment.serverUrl}/clients/${clientId}/charges/${chargeId}?command=paycharge`, payment, { params: httpParams });
   }
 
   getClientSummary(clientId: string) {
     const httpParams = new HttpParams().set('R_clientId', clientId)
       .set('genericResultSet', 'false');
-    return this.http.get(`/runreports/ClientSummary`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/runreports/ClientSummary`, { params: httpParams });
   }
 
   getClientProfileImage(clientId: string) {
@@ -167,15 +168,15 @@ export class ClientsService {
     const formData = new FormData();
     formData.append('file', image);
     formData.append('filename', 'file');
-    return this.http.post(`/clients/${clientId}/images`, formData);
+    return this.http.post(`${environment.serverUrl}/clients/${clientId}/images`, formData);
   }
 
   uploadCapturedClientProfileImage(clientId: string, imageURL: string) {
-    return this.http.post(`/clients/${clientId}/images`, imageURL);
+    return this.http.post(`${environment.serverUrl}/clients/${clientId}/images`, imageURL);
   }
 
   deleteClientProfileImage(clientId: string) {
-    return this.http.delete(`/clients/${clientId}/images`);
+    return this.http.delete(`${environment.serverUrl}/clients/${clientId}/images`);
   }
 
   uploadClientSignatureImage(clientId: string, signature: File) {
@@ -183,157 +184,157 @@ export class ClientsService {
     formData.append('file', signature);
     formData.append('name', 'clientSignature');
     formData.append('description', 'Client signature');
-    return this.http.post(`/clients/${clientId}/documents`, formData);
+    return this.http.post(`${environment.serverUrl}/clients/${clientId}/documents`, formData);
   }
 
   getClientSignatureImage(clientId: string, documentId: string) {
-    return this.http.get(`/clients/${clientId}/documents/${documentId}/attachment`, { responseType: 'blob' });
+    return this.http.get(`${environment.serverUrl}/clients/${clientId}/documents/${documentId}/attachment`, { responseType: 'blob' });
   }
 
   getClientFamilyMembers(clientId: string) {
-    return this.http.get(`/clients/${clientId}/familymembers`);
+    return this.http.get(`${environment.serverUrl}/clients/${clientId}/familymembers`);
   }
 
   getClientFamilyMember(clientId: string, familyMemberId: string) {
-    return this.http.get(`/clients/${clientId}/familymembers/${familyMemberId}`);
+    return this.http.get(`${environment.serverUrl}/clients/${clientId}/familymembers/${familyMemberId}`);
   }
 
   addFamilyMember(clientId: string, familyMemberData: any) {
-    return this.http.post(`/clients/${clientId}/familymembers`, familyMemberData);
+    return this.http.post(`${environment.serverUrl}/clients/${clientId}/familymembers`, familyMemberData);
   }
 
   editFamilyMember(clientId: string, familyMemberId: any, familyMemberData: any) {
-    return this.http.put(`/clients/${clientId}/familymembers/${familyMemberId}`, familyMemberData);
+    return this.http.put(`${environment.serverUrl}/clients/${clientId}/familymembers/${familyMemberId}`, familyMemberData);
   }
 
   deleteFamilyMember(clientId: string, familyMemberId: string) {
-    return this.http.delete(`/clients/${clientId}/familymembers/${familyMemberId}`);
+    return this.http.delete(`${environment.serverUrl}/clients/${clientId}/familymembers/${familyMemberId}`);
   }
 
   getClientIdentifiers(clientId: string) {
-    return this.http.get(`/clients/${clientId}/identifiers`);
+    return this.http.get(`${environment.serverUrl}/clients/${clientId}/identifiers`);
   }
 
   getClientIdentifierTemplate(clientId: string) {
-    return this.http.get(`/clients/${clientId}/identifiers/template`);
+    return this.http.get(`${environment.serverUrl}/clients/${clientId}/identifiers/template`);
   }
 
   addClientIdentifier(clientId: string, identifierData: any) {
-    return this.http.post(`/clients/${clientId}/identifiers`, identifierData);
+    return this.http.post(`${environment.serverUrl}/clients/${clientId}/identifiers`, identifierData);
   }
 
   deleteClientIdentifier(clientId: string, identifierId: string) {
-    return this.http.delete(`/clients/${clientId}/identifiers/${identifierId}`);
+    return this.http.delete(`${environment.serverUrl}/clients/${clientId}/identifiers/${identifierId}`);
   }
 
   getClientIdentificationDocuments(documentId: string) {
-    return this.http.get(`/client_identifiers/${documentId}/documents`);
+    return this.http.get(`${environment.serverUrl}/client_identifiers/${documentId}/documents`);
   }
 
   downloadClientIdentificationDocument(parentEntityId: string, documentId: string) {
-    return this.http.get(`/client_identifiers/${parentEntityId}/documents/${documentId}/attachment`, { responseType: 'blob' });
+    return this.http.get(`${environment.serverUrl}/client_identifiers/${parentEntityId}/documents/${documentId}/attachment`, { responseType: 'blob' });
   }
 
   uploadClientIdentifierDocument(identifierId: string, documentData: any) {
-    return this.http.post(`/client_identifiers/${identifierId}/documents`, documentData);
+    return this.http.post(`${environment.serverUrl}/client_identifiers/${identifierId}/documents`, documentData);
   }
 
   getClientDocuments(clientId: string) {
-    return this.http.get(`/clients/${clientId}/documents`);
+    return this.http.get(`${environment.serverUrl}/clients/${clientId}/documents`);
   }
 
   downloadClientDocument(parentEntityId: string, documentId: string) {
-    return this.http.get(`/clients/${parentEntityId}/documents/${documentId}/attachment`, { responseType: 'blob' });
+    return this.http.get(`${environment.serverUrl}/clients/${parentEntityId}/documents/${documentId}/attachment`, { responseType: 'blob' });
   }
 
   uploadClientDocument(clientId: string, documentData: any) {
-    return this.http.post(`/clients/${clientId}/documents`, documentData);
+    return this.http.post(`${environment.serverUrl}/clients/${clientId}/documents`, documentData);
   }
 
   deleteClientDocument(parentEntityId: string, documentId: string) {
-    return this.http.delete(`/clients/${parentEntityId}/documents/${documentId}`);
+    return this.http.delete(`${environment.serverUrl}/clients/${parentEntityId}/documents/${documentId}`);
   }
 
   getClientNotes(clientId: string) {
-    return this.http.get(`/clients/${clientId}/notes`);
+    return this.http.get(`${environment.serverUrl}/clients/${clientId}/notes`);
   }
 
   createClientNote(clientId: string, noteData: any) {
-    return this.http.post(`/clients/${clientId}/notes`, noteData);
+    return this.http.post(`${environment.serverUrl}/clients/${clientId}/notes`, noteData);
   }
 
   editClientNote(clientId: string, noteId: string, noteData: any) {
-    return this.http.put(`/clients/${clientId}/notes/${noteId}`, noteData);
+    return this.http.put(`${environment.serverUrl}/clients/${clientId}/notes/${noteId}`, noteData);
   }
 
   deleteClientNote(clientId: string, noteId: string) {
-    return this.http.delete(`/clients/${clientId}/notes/${noteId}`);
+    return this.http.delete(`${environment.serverUrl}/clients/${clientId}/notes/${noteId}`);
   }
 
   getAddressFieldConfiguration() {
-    return this.http.get(`/fieldconfiguration/ADDRESS`);
+    return this.http.get(`${environment.serverUrl}/fieldconfiguration/ADDRESS`);
   }
 
   getClientAddressData(clientId: string) {
-    return this.http.get(`/client/${clientId}/addresses`);
+    return this.http.get(`${environment.serverUrl}/client/${clientId}/addresses`);
   }
 
   getClientAddressTemplate() {
-    return this.http.get(`/client/addresses/template`);
+    return this.http.get(`${environment.serverUrl}/client/addresses/template`);
   }
 
   createClientAddress(clientId: string, addressTypeId: string, addressData: any) {
-    return this.http.post(`/client/${clientId}/addresses?type=${addressTypeId}`, addressData);
+    return this.http.post(`${environment.serverUrl}/client/${clientId}/addresses?type=${addressTypeId}`, addressData);
   }
 
   editClientAddress(clientId: string, addressTypeId: string, addressData: any) {
-    return this.http.put(`/client/${clientId}/addresses?type=${addressTypeId}`, addressData);
+    return this.http.put(`${environment.serverUrl}/client/${clientId}/addresses?type=${addressTypeId}`, addressData);
   }
 
   executeClientCommand(clientId: string, command: string, data: any): Observable<any> {
     const httpParams = new HttpParams().set('command', command);
-    return this.http.post(`/clients/${clientId}`, data, { params: httpParams });
+    return this.http.post(`${environment.serverUrl}/clients/${clientId}`, data, { params: httpParams });
   }
 
   getClientCommandTemplate(command: string): Observable<any> {
     const httpParams = new HttpParams().set('commandParam', command);
-    return this.http.get(`/clients/template`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/clients/template`, { params: httpParams });
   }
 
   getClientTransferProposalDate(clientId: any): Observable<any> {
-    return this.http.get(`/clients/${clientId}/transferproposaldate`);
+    return this.http.get(`${environment.serverUrl}/clients/${clientId}/transferproposaldate`);
   }
 
   getClientChargeTemplate(clientId: any): Observable<any> {
-    return this.http.get(`/clients/${clientId}/charges/template`);
+    return this.http.get(`${environment.serverUrl}/clients/${clientId}/charges/template`);
   }
 
   getChargeAndTemplate(chargeId: any): Observable<any> {
     const httpParams = new HttpParams().set('template', 'true');
-    return this.http.get(`/charges/${chargeId}`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/charges/${chargeId}`, { params: httpParams });
   }
 
   createClientCharge(clientId: any, charge: any) {
-    return this.http.post(`/clients/${clientId}/charges`, charge);
+    return this.http.post(`${environment.serverUrl}/clients/${clientId}/charges`, charge);
   }
 
   getClientReportTemplates() {
     const httpParams = new HttpParams()
           .set('entityId', '0')
           .set('typeId', '0');
-    return this.http.get('/templates', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/templates`, { params: httpParams });
   }
 
   retrieveClientReportTemplate(templateId: string, clientId: string) {
     const httpParams = new HttpParams().set('clientId', clientId);
-    return this.http.post(`/templates/${templateId}`, {}, { params: httpParams, responseType: 'text' });
+    return this.http.post(`${environment.serverUrl}/templates/${templateId}`, {}, { params: httpParams, responseType: 'text' });
   }
 
   /**
    * @returns {Observable<any>} Offices data
    */
   getOffices(): Observable<any> {
-    return this.http.get('/offices');
+    return this.http.get(`${environment.serverUrl}/offices`);
   }
 
   /**
@@ -341,14 +342,14 @@ export class ClientsService {
    * @param clientId
    */
   getSurveys(clientId: string) {
-    return this.http.get(`/surveys/scorecards/clients/${clientId}`);
+    return this.http.get(`${environment.serverUrl}/surveys/scorecards/clients/${clientId}`);
   }
 
   /**
    * returns the list of survey types and questions
    */
   getAllSurveysType() {
-    return this.http.get('/surveys');
+    return this.http.get(`${environment.serverUrl}/surveys`);
   }
 
   /**
@@ -357,14 +358,14 @@ export class ClientsService {
    * @param surveyData Survey Data submitted by client
    */
   createNewSurvey(surveyId: Number, surveyData: any) {
-    return this.http.post(`/surveys/scorecards/${surveyId}`, surveyData);
+    return this.http.post(`${environment.serverUrl}/surveys/scorecards/${surveyId}`, surveyData);
   }
 
   /**
    * @param userData User Data.
    */
   createSelfServiceUser(userData: any) {
-    return this.http.post(`/users`, userData);
+    return this.http.post(`${environment.serverUrl}/users`, userData);
   }
 
   /**
@@ -372,14 +373,14 @@ export class ClientsService {
    * @param collateralData Collateral Data
    */
   createClientCollateral(clientId: any, collateralData: any) {
-    return this.http.post(`/clients/${clientId}/collaterals`, collateralData);
+    return this.http.post(`${environment.serverUrl}/clients/${clientId}/collaterals`, collateralData);
   }
 
   /**
    * @param clientId Client ID.
    */
   getCollateralTemplate(clientId: any) {
-    return this.http.get(`/clients/${clientId}/collaterals/template`);
+    return this.http.get(`${environment.serverUrl}/clients/${clientId}/collaterals/template`);
   }
 
   searchByText(text: string, page: number, pageSize: number, sortAttribute: string = '', sortDirection: string = '') {
@@ -401,6 +402,6 @@ export class ClientsService {
         ]
       };
     }
-    return this.http.post(`/v2/clients/search`, request);
+    return this.http.post(`${environment.serverUrl}/v2/clients/search`, request);
   }
 }

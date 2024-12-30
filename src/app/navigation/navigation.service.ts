@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';
+import { environment } from 'environments/environment';
 
 /**
  * Navigation service.
@@ -22,7 +23,7 @@ export class NavigationService {
    * @returns {Observable<any>} Offices.
    */
   getOffices(): Observable<any> {
-    return this.http.get('/offices');
+    return this.http.get(`${environment.serverUrl}/offices`);
   }
 
   /**
@@ -32,7 +33,7 @@ export class NavigationService {
   getEmployees(officeId: number): Observable<any> {
     const httpParams = new HttpParams()
       .set('officeId', officeId.toString());
-    return this.http.get('/staff', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/staff`, { params: httpParams });
   }
 
   /**
@@ -43,7 +44,7 @@ export class NavigationService {
     const httpParams = new HttpParams()
       .set('R_staffId', staffId.toString())
       .set('genericResultSet', false.toString());
-    return this.http.get('/runreports/GroupNamesByStaff', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/runreports/GroupNamesByStaff`, { params: httpParams });
   }
 
   /**
@@ -53,7 +54,7 @@ export class NavigationService {
   getCenter(centerId: number): Observable<any> {
     const httpParams = new HttpParams()
       .set('associations', 'groupMembers');
-    return this.http.get(`/centers/${centerId}`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/centers/${centerId}`, { params: httpParams });
   }
 
   /**
@@ -61,7 +62,7 @@ export class NavigationService {
    * @returns {Observable<any>} Center Accounts
    */
   getCenterAccounts(centerId: number): Observable<any> {
-    return this.http.get(`/centers/${centerId}/accounts`);
+    return this.http.get(`${environment.serverUrl}/centers/${centerId}/accounts`);
   }
 
   /**
@@ -72,7 +73,7 @@ export class NavigationService {
     const httpParams = new HttpParams()
     .set('R_groupId', centerId.toString())
     .set('genericResultSet', false.toString());
-    return this.http.get('/runreports/GroupSummaryCounts', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/runreports/GroupSummaryCounts`, { params: httpParams });
   }
 
   /**
@@ -82,7 +83,7 @@ export class NavigationService {
   getGroup(groupId: number): Observable<any> {
     const httpParams = new HttpParams()
       .set('associations', 'all');
-    return this.http.get(`/groups/${groupId}`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/groups/${groupId}`, { params: httpParams });
   }
 
   /**
@@ -90,7 +91,7 @@ export class NavigationService {
    * @returns {Observable<any>} Group Accounts
    */
   getGroupAccounts(groupId: number): Observable<any> {
-    return this.http.get(`/groups/${groupId}/accounts`);
+    return this.http.get(`${environment.serverUrl}/groups/${groupId}/accounts`);
   }
 
   /**
@@ -98,7 +99,7 @@ export class NavigationService {
    * @returns {Observable<any>} Client
    */
   getClient(clientId: number): Observable<any> {
-    return this.http.get(`/clients/${clientId}`);
+    return this.http.get(`${environment.serverUrl}/clients/${clientId}`);
   }
 
   /**
@@ -106,7 +107,7 @@ export class NavigationService {
    * @returns {Observable<any>} Client Accounts
    */
   getClientAccounts(clientId: number): Observable<any> {
-    return this.http.get(`/clients/${clientId}/accounts`);
+    return this.http.get(`${environment.serverUrl}/clients/${clientId}/accounts`);
   }
 
 }

@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';
+import { environment } from 'environments/environment';
 /**
  * Collaterals service.
  */
@@ -25,27 +26,27 @@ export class CollateralsService {
     if (officeId) {
       httpParams = httpParams.set('officeId', officeId);
     }
-    return this.http.get('/clients', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/clients`, { params: httpParams });
   }
 
   /**
    * @returns {Observable<any>} Collaterals data
    */
    getClientCollateral(clientId: any, clientCollateralId: any): Observable<any> {
-    return this.http.get(`/clients/${clientId}/collaterals/${clientCollateralId}`);
+    return this.http.get(`${environment.serverUrl}/clients/${clientId}/collaterals/${clientCollateralId}`);
   }
 
   /**
    * @returns {Observable<any>} Collaterals data
    */
    updateClientCollateral(clientId: any, clientCollateralId: any, clientCollateralData: any): Observable<any> {
-    return this.http.put(`/clients/${clientId}/collaterals/${clientCollateralId}`, clientCollateralData);
+    return this.http.put(`${environment.serverUrl}/clients/${clientId}/collaterals/${clientCollateralId}`, clientCollateralData);
   }
 
   /**
    * @returns {Observable<any>} Delete Collaterals data
    */
    deleteCollateral(clientId: any, clientCollateralId: any): Observable<any> {
-    return this.http.delete(`/clients/${clientId}/collaterals/${clientCollateralId}`);
+    return this.http.delete(`${environment.serverUrl}/clients/${clientId}/collaterals/${clientCollateralId}`);
   }
 }

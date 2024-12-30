@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 /** rxjs Imports */
 import { Observable, of } from 'rxjs';
+import { environment } from 'environments/environment';
 
 /**
  * Notification service.
@@ -23,14 +24,14 @@ export class NotificationsService {
    */
   getNotifications(isRead: boolean): Observable<any> {
     const httpParams = new HttpParams().set('isRead', isRead.toString());
-    return this.http.get('/notifications', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/notifications`, { params: httpParams });
   }
 
   /**
    * @returns {Observable<any>} Notifications.
    */
   updateNotifications(): Observable<any> {
-    return this.http.put('/notifications', { });
+    return this.http.put(`${environment.serverUrl}/notifications`, { });
   }
 
   /**

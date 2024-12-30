@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';
+import { environment } from 'environments/environment';
 
 /**
  * Groups service.
@@ -39,7 +40,7 @@ export class GroupsService {
         httpParams = httpParams.set(filter.type, filter.value);
       }
     });
-    return this.http.get('/groups', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/groups`, { params: httpParams });
   }
 
   /**
@@ -59,7 +60,7 @@ export class GroupsService {
       httpParams = httpParams.set('officeId', officeId);
     }
     httpParams = orphansOnly ? httpParams.set('orphansOnly', orphansOnly) : httpParams;
-    return this.http.get('/groups', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/groups`, { params: httpParams });
   }
 
   /**
@@ -68,7 +69,7 @@ export class GroupsService {
    */
   getGroupsByOfficeId(officeId: number): Observable<any> {
     const httpParams = new HttpParams().set('officeId', officeId.toString());
-    return this.http.get('/groups', { params: httpParams } );
+    return this.http.get(`${environment.serverUrl}/groups`, { params: httpParams } );
   }
 
   /**
@@ -79,7 +80,7 @@ export class GroupsService {
   getGroupData(groupId: string, template?: string): Observable<any> {
     let httpParams = new HttpParams().set('associations', 'all');
     httpParams = template ? httpParams.set('template', template) : httpParams;
-    return this.http.get(`/groups/${groupId}`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/groups/${groupId}`, { params: httpParams });
   }
 
   /**
@@ -89,7 +90,7 @@ export class GroupsService {
   getGroupSummary(groupId: string): Observable<any> {
     const httpParams = new HttpParams().set('R_groupId', groupId)
       .set('genericResultSet', 'false');
-    return this.http.get(`/runreports/GroupSummaryCounts`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/runreports/GroupSummaryCounts`, { params: httpParams });
   }
 
   /**
@@ -97,7 +98,7 @@ export class GroupsService {
    * @returns {Observable<any>} Group Accounts data.
    */
   getGroupAccountsData(groupId: string): Observable<any> {
-    return this.http.get(`/groups/${groupId}/accounts`);
+    return this.http.get(`${environment.serverUrl}/groups/${groupId}/accounts`);
   }
 
   /**
@@ -105,7 +106,7 @@ export class GroupsService {
    * @returns {Observable<any>} Group Notes data.
    */
   getGroupNotes(groupId: string): Observable<any> {
-    return this.http.get(`/groups/${groupId}/notes`);
+    return this.http.get(`${environment.serverUrl}/groups/${groupId}/notes`);
   }
 
   /**
@@ -114,7 +115,7 @@ export class GroupsService {
    * @returns {Observable<any>}
    */
   createGroupNote(groupId: string, noteData: any): Observable<any> {
-    return this.http.post(`/groups/${groupId}/notes`, noteData);
+    return this.http.post(`${environment.serverUrl}/groups/${groupId}/notes`, noteData);
   }
 
   /**
@@ -124,7 +125,7 @@ export class GroupsService {
    * @returns {Observable<any>}
    */
   editGroupNote(groupId: string, noteId: string, noteData: any): Observable<any> {
-    return this.http.put(`/groups/${groupId}/notes/${noteId}`, noteData);
+    return this.http.put(`${environment.serverUrl}/groups/${groupId}/notes/${noteId}`, noteData);
   }
 
   /**
@@ -133,7 +134,7 @@ export class GroupsService {
    * @returns {Observable<any>}
    */
   deleteGroupNote(groupId: string, noteId: string): Observable<any> {
-    return this.http.delete(`/groups/${groupId}/notes/${noteId}`);
+    return this.http.delete(`${environment.serverUrl}/groups/${groupId}/notes/${noteId}`);
   }
 
   /**
@@ -141,7 +142,7 @@ export class GroupsService {
    */
   getGroupDatatables(): Observable<any> {
     const httpParams = new HttpParams().set('apptable', 'm_group');
-    return this.http.get(`/datatables`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/datatables`, { params: httpParams });
   }
 
   /**
@@ -151,7 +152,7 @@ export class GroupsService {
    */
   getGroupDatatable(groupId: string, datatableName: string): Observable<any> {
     const httpParams = new HttpParams().set('genericResultSet', 'true');
-    return this.http.get(`/datatables/${datatableName}/${groupId}`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/datatables/${datatableName}/${groupId}`, { params: httpParams });
   }
 
   /**
@@ -162,7 +163,7 @@ export class GroupsService {
    */
   addGroupDatatableEntry(groupId: string, datatableName: string, data: any): Observable<any> {
     const httpParams = new HttpParams().set('genericResultSet', 'true');
-    return this.http.post(`/datatables/${datatableName}/${groupId}`, data, { params: httpParams });
+    return this.http.post(`${environment.serverUrl}/datatables/${datatableName}/${groupId}`, data, { params: httpParams });
   }
 
   /**
@@ -173,7 +174,7 @@ export class GroupsService {
    */
   editGroupDatatableEntry(groupId: string, datatableName: string, data: any): Observable<any> {
     const httpParams = new HttpParams().set('genericResultSet', 'true');
-    return this.http.put(`/datatables/${datatableName}/${groupId}`, data, { params: httpParams });
+    return this.http.put(`${environment.serverUrl}/datatables/${datatableName}/${groupId}`, data, { params: httpParams });
   }
 
   /**
@@ -183,7 +184,7 @@ export class GroupsService {
    */
   deleteDatatableContent(groupId: string, datatableName: string): Observable<any> {
     const httpParams = new HttpParams().set('genericResultSet', 'true');
-    return this.http.delete(`/datatables/${datatableName}/${groupId}`, { params: httpParams });
+    return this.http.delete(`${environment.serverUrl}/datatables/${datatableName}/${groupId}`, { params: httpParams });
   }
 
   /**
@@ -192,7 +193,7 @@ export class GroupsService {
    */
   getGroupCommandTemplate(command: string): Observable<any> {
     const httpParams = new HttpParams().set('command', command);
-    return this.http.get(`/groups/template`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/groups/template`, { params: httpParams });
   }
 
   /**
@@ -203,7 +204,7 @@ export class GroupsService {
    */
   executeGroupCommand(groupId: string, command: string, data: any): Observable<any> {
     const httpParams = new HttpParams().set('command', command);
-    return this.http.post(`/groups/${groupId}`, data, { params: httpParams });
+    return this.http.post(`${environment.serverUrl}/groups/${groupId}`, data, { params: httpParams });
   }
 
   /**
@@ -215,7 +216,7 @@ export class GroupsService {
     const httpParams = new HttpParams()
         .set('command', 'unassignRole')
         .set('roleId', roleId);
-    return this.http.post(`/groups/${groupId}`, {}, { params: httpParams });
+    return this.http.post(`${environment.serverUrl}/groups/${groupId}`, {}, { params: httpParams });
   }
 
   /**
@@ -223,7 +224,7 @@ export class GroupsService {
    * @returns {Observable<any>}
    */
   createGroup(group: any): Observable<any> {
-    return this.http.post('/groups', group);
+    return this.http.post(`${environment.serverUrl}/groups`, group);
   }
 
   /**
@@ -232,7 +233,7 @@ export class GroupsService {
    * @returns {Observable<any>}
    */
   updateGroup(group: any, groupId: any): Observable<any> {
-    return this.http.put(`/groups/${groupId}`, group);
+    return this.http.put(`${environment.serverUrl}/groups/${groupId}`, group);
   }
 
   /**
@@ -240,7 +241,7 @@ export class GroupsService {
    * @returns {Observable<any>}
    */
   deleteGroup(groupId: string): Observable<any> {
-    return this.http.delete(`/groups/${groupId}`);
+    return this.http.delete(`${environment.serverUrl}/groups/${groupId}`);
   }
 
   /**
@@ -248,7 +249,7 @@ export class GroupsService {
    * @returns {Observable<any>}
    */
   getGroupCalendarTemplate(groupId: any): Observable<any> {
-    return this.http.get(`/groups/${groupId}/calendars/template`);
+    return this.http.get(`${environment.serverUrl}/groups/${groupId}/calendars/template`);
   }
 
   /**
@@ -258,7 +259,7 @@ export class GroupsService {
    */
   getGroupCalendarAndTemplate(groupId: any, calendarId: any): Observable<any> {
     const httpParams = new HttpParams().set('template', 'true');
-    return this.http.get(`/groups/${groupId}/calendars/${calendarId}`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/groups/${groupId}/calendars/${calendarId}`, { params: httpParams });
   }
 
   /**
@@ -267,7 +268,7 @@ export class GroupsService {
    * @returns {Observable<any>}
    */
   createGroupMeeting(groupId: any, data: any): Observable<any> {
-    return this.http.post(`/groups/${groupId}/calendars`, data);
+    return this.http.post(`${environment.serverUrl}/groups/${groupId}/calendars`, data);
   }
 
   /**
@@ -277,7 +278,7 @@ export class GroupsService {
    * @returns {Observable<any>}
    */
   updateGroupMeeting(groupId: any, data: any, calendarId: any): Observable<any> {
-    return this.http.put(`/groups/${groupId}/calendars/${calendarId}`, data);
+    return this.http.put(`${environment.serverUrl}/groups/${groupId}/calendars/${calendarId}`, data);
   }
 
   /**
@@ -287,7 +288,7 @@ export class GroupsService {
    */
   getMeetingsTemplate(groupId: any, calendarId: any): Observable<any> {
     const httpParams = new HttpParams().set('calenderId', calendarId);
-    return this.http.get(`/groups/${groupId}/meetings/template`, { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/groups/${groupId}/meetings/template`, { params: httpParams });
   }
 
   /**
@@ -298,7 +299,7 @@ export class GroupsService {
    */
   assignGroupAttendance(groupId: any, calendarId: any, data: any): Observable<any> {
     const httpParams = new HttpParams().set('calenderId', calendarId);
-    return this.http.post(`/groups/${groupId}/meetings`, data, { params: httpParams });
+    return this.http.post(`${environment.serverUrl}/groups/${groupId}/meetings`, data, { params: httpParams });
   }
 
   /**
@@ -309,7 +310,7 @@ export class GroupsService {
     const httpParams = new HttpParams()
         .set('officeId', id.toString())
         .set('staffInSelectedOfficeOnly', 'true');
-    return this.http.get('/groups/template', { params: httpParams });
+    return this.http.get(`${environment.serverUrl}/groups/template`, { params: httpParams });
   }
 
   /**
@@ -317,7 +318,7 @@ export class GroupsService {
    * @returns {Observable<any>} Group GLIM Accounts data.
    */
    getGLIMAccountsData(groupId: string): Observable<any> {
-    return this.http.get(`/groups/${groupId}/glimaccounts`);
+    return this.http.get(`${environment.serverUrl}/groups/${groupId}/glimaccounts`);
   }
 
   /**
@@ -325,7 +326,7 @@ export class GroupsService {
    * @returns {Observable<any>} Group GSIM Accounts data.
    */
    getGSIMAccountsData(groupId: string): Observable<any> {
-    return this.http.get(`/groups/${groupId}/gsimaccounts`);
+    return this.http.get(`${environment.serverUrl}/groups/${groupId}/gsimaccounts`);
   }
 
 }

@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 
 /** Custom Models */
 import { User } from './user.model';
+import { environment } from 'environments/environment';
 
 /**
  * Self service users service.
@@ -31,7 +32,7 @@ export class UserService {
    */
   getUsers(): Observable<User[]> {
     const httpParams = new HttpParams().set('fields', 'id,firstname,lastname,email,officeName,staff');
-    return this.http.get('/users', { params: httpParams })
+    return this.http.get(`${environment.serverUrl}/users`, { params: httpParams })
       .pipe(
         map((users: any) => {
           users.forEach((user: any) => {
@@ -55,7 +56,7 @@ export class UserService {
    */
   changePassword(userId: string, passwordObj: any) {
 
-    return this.http.put(`/users/${userId}`, passwordObj);
+    return this.http.put(`${environment.serverUrl}/users/${userId}`, passwordObj);
   }
 
 }

@@ -10,6 +10,7 @@ import { map } from 'rxjs/operators';
 import { ReportParameter } from './common-models/report-parameter.model';
 import { SelectOption } from './common-models/select-option.model';
 import { ChartData } from './common-models/chart-data.model';
+import { environment } from 'environments/environment';
 
 /**
  * Reports service.
@@ -28,21 +29,21 @@ export class ReportsService {
    * @returns {Observable<any>} Reports data
    */
   getReports(): Observable<any> {
-    return this.http.get('/reports');
+    return this.http.get(`${environment.serverUrl}/reports`);
   }
 
   /**
    * @returns {Observable<any>} Mix Taxonomy data
    */
   getMixTaxonomyArray(): Observable<any> {
-    return this.http.get('/mixtaxonomy');
+    return this.http.get(`${environment.serverUrl}/mixtaxonomy`);
   }
 
   /**
    * @returns {Observable<any>} Mix Taxonomy data
    */
   getMixMappings(): Observable<any> {
-    return this.http.get('/mixmapping');
+    return this.http.get(`${environment.serverUrl}/mixmapping`);
   }
 
   /**
@@ -50,7 +51,7 @@ export class ReportsService {
    * @returns {Observable<any>} response code
    */
   editMixMappings(mixMappingData: any): Observable<any> {
-    return this.http.put('/mixmapping', mixMappingData);
+    return this.http.put(`${environment.serverUrl}/mixmapping`, mixMappingData);
   }
 
   /**
@@ -61,7 +62,7 @@ export class ReportsService {
     const httpParams = new HttpParams()
       .set('startDate', dates.startDate)
       .set('endDate', dates.endDate);
-    return this.http.get('/mixreport', { params: httpParams, responseType: 'text' });
+    return this.http.get(`${environment.serverUrl}/mixreport`, { params: httpParams, responseType: 'text' });
   }
 
   /**
@@ -72,7 +73,7 @@ export class ReportsService {
     const httpParams = new HttpParams()
       .set('R_reportListing', `'${reportName}'`)
       .set('parameterType', 'true');
-    return this.http.get(`/runreports/FullParameterList`, {params: httpParams})
+    return this.http.get(`${environment.serverUrl}/runreports/FullParameterList`, {params: httpParams})
            .pipe(map((response: any) => response.data.map((entry: any) => new ReportParameter(entry.row)) ));
   }
 
@@ -82,7 +83,7 @@ export class ReportsService {
    */
   getSelectOptions(inputString: string): Observable<SelectOption[]> {
     const httpParams = new HttpParams().set('parameterType', 'true');
-    return this.http.get(`/runreports/${inputString}`, {params: httpParams})
+    return this.http.get(`${environment.serverUrl}/runreports/${inputString}`, {params: httpParams})
       .pipe(map((response: any) => response.data.map((entry: any) => new SelectOption(entry.row)) ));
   }
 
@@ -92,7 +93,7 @@ export class ReportsService {
    */
   getPentahoParams(reportId: number): Observable<any> {
     const httpParams = new HttpParams().set('fields', 'reportParameters');
-    return this.http.get(`/reports/${reportId}`, {params: httpParams})
+    return this.http.get(`${environment.serverUrl}/reports/${reportId}`, {params: httpParams})
       .pipe(map((response: any) => response.reportParameters));
   }
 
@@ -107,7 +108,7 @@ export class ReportsService {
     for (const [key, value] of Object.entries(formData)) {
       httpParams = httpParams.set(key, value);
     }
-    return this.http.get(`/runreports/${reportName}`, {params: httpParams});
+    return this.http.get(`${environment.serverUrl}/runreports/${reportName}`, {params: httpParams});
   }
 
   /**
@@ -121,7 +122,7 @@ export class ReportsService {
     for (const [key, value] of Object.entries(formData)) {
       httpParams = httpParams.set(key, value);
     }
-    return this.http.get(`/runreports/${reportName}`, {params: httpParams})
+    return this.http.get(`${environment.serverUrl}/runreports/${reportName}`, {params: httpParams})
     .pipe(map((response: any) => new ChartData(response)));
   }
 
@@ -139,7 +140,7 @@ export class ReportsService {
     for (const [key, value] of Object.entries(formData)) {
       httpParams = httpParams.set(key, value);
     }
-    return this.http.get(`/runreports/${reportName}`, {responseType: 'arraybuffer', observe: 'response', params: httpParams});
+    return this.http.get(`${environment.serverUrl}/runreports/${reportName}`, {responseType: 'arraybuffer', observe: 'response', params: httpParams});
   }
 
 }
